@@ -23,8 +23,7 @@ Depends: <%= get_requires.map { |req| "#{req.requirement} #{req.version ? "(#{re
 <%- unless get_provides.empty? -%>
 Provides: <%= get_provides.map { |prov| prov.provide }.join(", ") %>
 <%- end -%>
-Description: <%= @description.lines.first.chomp %>
- <%= @description.lines[1..-1].join("\s") -%>
+Description: <%= @description.lines.map { |desc| desc.chomp }.join("\n ") %>
  .
  Contains the following components:
  <%= generate_bill_of_materials.join("\n\s") %>
