@@ -1,19 +1,51 @@
+---
 name: Ruby
 
-on: [push, pull_request]
+on:
+  pull_request: {}
+  push:
+    branches: main
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  rubocop_and_matrix:
+    runs-on: ubuntu-24.04
+    outputs:
+      ruby: ${{ steps.ruby.outputs.versions }}
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby 2.7
+    - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '2.7'
-        bundler: '2.4.22'
+        ruby-version: '3.4'
         bundler-cache: true
-    - name: Build and test with Rake
-      run: bundle exec rake
+    - id: ruby
+      uses: voxpupuli/ruby-version@v1
+
+  test:
+    runs-on: ubuntu-24.04
+    needs: rubocop_and_matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ${{ fromJSON(needs.rubocop_and_matrix.outputs.ruby) }}
+    name: "Ruby ${{ matrix.ruby }}"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rake
+      - name: Build gem
+        run: gem build --verbose *.gemspec
+
+  tests:
+    needs:
+      - rubocop_and_matrix
+      - test
+    runs-on: ubuntu-latest
+    name: Test suite
+    steps:
+      - run: echo Test suite completed
