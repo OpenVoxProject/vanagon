@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('docopt')
   # Handle git repos responsibly
   # - MIT licensed: https://rubygems.org/gems/git
-  gem.add_dependency('git', '~> 1.13.0')
+  gem.add_dependency('git', '>= 1.13', '< 3.1')
   # Parse scp-style triplets like URIs; used for Git source handling.
   # - MIT licensed: https://rubygems.org/gems/build-uri
   gem.add_dependency('build-uri', '~> 1.0')
