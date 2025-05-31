@@ -470,8 +470,8 @@ class Vanagon
       #
       # @param *args [Array<String>] List of arguments to pass on to the platform specific method
       # @raise [Vanagon::Error] an arror is raised if the current platform does not define add_repository
-      def add_build_repository(*args)
-        @platform.add_build_repository(*args)
+      def add_build_repository(*)
+        @platform.add_build_repository(*)
       end
 
       def setting(name, value)

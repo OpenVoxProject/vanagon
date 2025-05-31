@@ -16,7 +16,7 @@ jobs:
     - name: setup ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7
+        ruby-version: 3.4
     # setup a package lock if one doesn't exist, otherwise do nothing
     - name: check lock
       run: '[ -f "Gemfile.lock" ] && echo "package lock file exists, skipping" || bundle lock'

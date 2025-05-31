@@ -9,7 +9,7 @@ require 'ostruct'
 require 'time'
 
 # Used to parse the vendor field into name and email
-VENDOR_REGEX = /^(.*) <(.*)>$/.freeze
+VENDOR_REGEX = /^(.*) <(.*)>$/
 
 class Vanagon
   class Project
@@ -862,7 +862,7 @@ class Vanagon
                       source.file
                     end
 
-        @settings.merge!(YAML.safe_load(File.read(yaml_path), permitted_classes: [Symbol]))
+        @settings.merge!(YAML.safe_load_file(yaml_path, permitted_classes: [Symbol]))
       end
     end
 

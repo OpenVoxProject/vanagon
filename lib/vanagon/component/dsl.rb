@@ -23,7 +23,7 @@ class Vanagon
       #
       # @param name [String] name of the componennt
       # @param block [Proc] DSL definition of the component to call
-      def component(name, &block)
+      def component(name, &)
         yield(self, @component.settings, @component.platform)
       end
 
@@ -59,28 +59,28 @@ class Vanagon
       # Set or add to the configure call for the component. The commands required to configure the component before building it.
       #
       # @param block [Proc] the command(s) required to configure the component
-      def configure(&block)
+      def configure(&)
         @component.configure << yield
       end
 
       # Set or add to the build call for the component. The commands required to build the component before testing/installing it.
       #
       # @param block [Proc] the command(s) required to build the component
-      def build(&block)
+      def build(&)
         @component.build << yield
       end
 
       # Set or add to the check call for the component. The commands required to test the component before installing it.
       #
       # @param block [Proc] the command(s) required to test the component
-      def check(&block)
+      def check(&)
         @component.check << yield
       end
 
       # Set or add to the install call for the component. The commands required to install the component.
       #
       # @param block [Proc] the command(s) required to install the component
-      def install(&block)
+      def install(&)
         @component.install << yield
       end
 

@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.authors  = ['Puppet By Perforce', 'OpenVoxProjec']
   gem.email    = 'voxpupuli@groups.io'
   gem.homepage = 'http://github.com/OpenVoxProject/vanagon'
-  gem.required_ruby_version = ['>= 2.7', '< 4']
+  gem.required_ruby_version = ['>= 3.2', '< 4']
 
   gem.add_dependency('docopt', '~> 0.6.1')
   # Handle git repos responsibly

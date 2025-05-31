@@ -4,7 +4,8 @@ name: Ruby
 on:
   pull_request: {}
   push:
-    branches: main
+    branches:
+      - main
 
 jobs:
   rubocop_and_matrix:

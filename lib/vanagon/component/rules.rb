@@ -20,10 +20,10 @@ class Vanagon
       #
       # @!macro [attach] rule
       #   @return [Makefile::Rule] The $1 rule
-      def self.rule(target, &block)
+      def self.rule(target, &)
         define_method("#{target}_rule") do
           Makefile::Rule.new("#{component.name}-#{target}") do |rule|
-            instance_exec(rule, &block)
+            instance_exec(rule, &)
           end
         end
       end

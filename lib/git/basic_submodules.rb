@@ -35,8 +35,8 @@ module BasicSubmodules
   # @option options [Boolean] :rebase rebase current branch of submodule onto the commit recorded in the superproject
   # @option options [Boolean] :recursive recurse into nested submodules
   # @return options [String] any output produced by `git` when submodules are initialized
-  def update_submodules(**options)
-    self.lib.update_submodules(**options)
+  def update_submodules(**)
+    self.lib.update_submodules(**)
   end
 end
 

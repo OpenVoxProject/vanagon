@@ -144,9 +144,9 @@ class Vanagon
     # Platform names currently contain some information about the platform. Fields
     # within the name are delimited by the '-' character, and this regex can be used to
     # extract those fields.
-    PLATFORM_REGEX = /^(.*)-(.*)-(.*)$/.freeze
+    PLATFORM_REGEX = /^(.*)-(.*)-(.*)$/
 
-    VERSION_REGEX = /^([=<>]+)\s*([^<>=]*)$/.freeze
+    VERSION_REGEX = /^([=<>]+)\s*([^<>=]*)$/
 
     # Loads a platform from the config/platforms directory
     #
@@ -510,9 +510,9 @@ class Vanagon
     #
     # @param *args [Array<String>] List of arguments to pass on to the platform specific method
     # @raise [Vanagon::Error] an arror is raised if the current platform does not define add_repository
-    def add_build_repository(*args)
+    def add_build_repository(*)
       if self.respond_to?(:add_repository)
-        self.provision_with self.send(:add_repository, *args)
+        self.provision_with self.send(:add_repository, *)
       else
         raise Vanagon::Error, "Adding a build repository not defined for #{name}"
       end

@@ -258,7 +258,7 @@ describe 'Vanagon::Project' do
 
         allow(Vanagon::Component::Source).to receive(:determine_source_type).and_return(:local)
         allow(Vanagon::Component::Source).to receive(:source).and_return(local_source)
-        allow(File).to receive(:read).with(yaml_path).and_return(yaml_content)
+        allow(YAML).to receive(:safe_load_file).with(yaml_path, permitted_classes: [Symbol]).and_return({ other: 'other', merged: 'yup' })
 
         expect { project.load_yaml_settings(local_yaml_uri) }.not_to raise_exception
       end

@@ -4,7 +4,6 @@ require 'vanagon/project'
 require 'vanagon/utilities'
 require 'vanagon/component/source'
 require 'git/rev_list'
-require 'set'
 require 'yaml'
 
 class Vanagon
@@ -28,7 +27,7 @@ class Vanagon
       #
       # @param name [String] name of the project
       # @param block [Proc] DSL definition of the project to call
-      def project(name, &block)
+      def project(name, &)
         yield(self)
       end
 
