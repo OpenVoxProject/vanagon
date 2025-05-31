@@ -285,7 +285,6 @@ describe "Vanagon::Component" do
       allow(::Git).to receive(:clone).and_return(clone)
       allow(clone).to receive(:describe).and_return('4.5.6')
       allow(clone).to receive(:checkout).and_return(nil)
-      allow(clone).to receive(:update_submodules).and_return(nil)
       expect(component.force_version).to eq('4.5.6')
     end
 
@@ -294,7 +293,6 @@ describe "Vanagon::Component" do
       allow(::Git).to receive(:clone).and_return(clone)
       allow(clone).to receive(:describe).and_return(nil)
       allow(clone).to receive(:checkout).and_return(nil)
-      allow(clone).to receive(:update_submodules).and_return(nil)
       expect{ component.force_version }.to raise_error(Vanagon::Error, /unable to determine source version/i)
     end
   end
