@@ -85,7 +85,7 @@ class Vanagon
         # Default options used when cloning; this may expand
         # or change over time.
         def default_options # rubocop:disable Lint/DuplicateMethods
-          @default_options ||= { ref: "HEAD", config: ['submodule.recurse=true'],}
+          @default_options ||= { ref: "HEAD", config: ['submodule.recurse=true'] }
         end
         private :default_options
 
