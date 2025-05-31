@@ -5,7 +5,7 @@ require 'vanagon/logger'
 # but it provides a wealth of useful constants
 require 'English'
 require 'build/uri'
-require 'git/basic_submodules'
+require 'git'
 require 'logger'
 require 'timeout'
 
@@ -85,7 +85,7 @@ class Vanagon
         # Default options used when cloning; this may expand
         # or change over time.
         def default_options # rubocop:disable Lint/DuplicateMethods
-          @default_options ||= { ref: "HEAD" }
+          @default_options ||= { ref: "HEAD",  config: ['submodule.recurse=true'],}
         end
         private :default_options
 
@@ -121,7 +121,6 @@ class Vanagon
           end
           checkout!
           version
-          update_submodules
         end
 
         # Return the correct incantation to cleanup the source directory for a given source
@@ -200,14 +199,6 @@ class Vanagon
           raise Vanagon::CheckoutFailed, "unable to checkout #{ref} from '#{log_url}'"
         end
         private :checkout!
-
-        # Attempt to update submodules, and do not panic
-        # if there are no submodules to initialize
-        def update_submodules
-          VanagonLogger.info "Attempting to update submodules for repo '#{dirname}'"
-          clone.update_submodules(init: true)
-        end
-        private :update_submodules
 
         # Determines a version for the given directory based on the git describe
         # for the repository
