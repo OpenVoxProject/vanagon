@@ -116,7 +116,7 @@ class Vanagon
           begin
             @clone ||= ::Git.open(File.join(workdir, dirname))
             @clone.fetch
-          rescue ::Git::GitExecuteError, ArgumentError
+          rescue ::Git::Error, ArgumentError
             clone!
           end
           checkout!
@@ -185,7 +185,7 @@ class Vanagon
         def clone!
           VanagonLogger.info "Cloning Git repo '#{log_url}'"
           VanagonLogger.info "Successfully cloned '#{dirname}'" if clone
-        rescue ::Git::GitExecuteError
+        rescue ::Git::Error
           raise Vanagon::InvalidRepo, "Unable to clone from '#{log_url}'"
         end
         private :clone!
@@ -195,7 +195,7 @@ class Vanagon
         def checkout!
           VanagonLogger.info "Checking out '#{ref}' from Git repo '#{dirname}'"
           clone.checkout(ref)
-        rescue ::Git::GitExecuteError
+        rescue ::Git::Error
           raise Vanagon::CheckoutFailed, "unable to checkout #{ref} from '#{log_url}'"
         end
         private :checkout!
@@ -206,7 +206,7 @@ class Vanagon
         # @return [String] The version of the directory according to git describe
         def describe
           clone.describe(ref, tags: true)
-        rescue ::Git::GitExecuteError
+        rescue ::Git::Error
           VanagonLogger.info "Directory '#{dirname}' cannot be versioned by Git. Maybe it hasn't been tagged yet?"
         end
         private :describe
