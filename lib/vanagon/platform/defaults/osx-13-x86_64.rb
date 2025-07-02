@@ -18,6 +18,11 @@ platform "osx-13-x86_64" do |plat|
   plat.provision_with "mkdir -p /etc/homebrew"
   plat.provision_with "cd /etc/homebrew"
   plat.provision_with "createhomedir -c -u test"
-  plat.provision_with %Q(su test -c 'echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"')
+  if File.directory?("/usr/local/var/homebrew")
+    plat.provision_with "sudo chown -R test /usr/local/var/homebrew"
+    plat.provision_with "sudo chown -R test /usr/local/share/zsh /usr/local/share/zsh/site-functions"
+  else
+    plat.provision_with %Q(su test -c 'echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"')
+  end
   plat.vmpooler_template "macos-13-x86_64"
 end
