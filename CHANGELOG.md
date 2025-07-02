@@ -8,6 +8,7 @@ This changelog adheres to [Keep a CHANGELOG](https://keepachangelog.com).
 - Bump minimum ruby requirement to 2.7
 - Fix preserve param default behaving like `always` but should be `on-failure`
 - Fix invalid Debian changelogs (#4)
+- Fix Git::GitExecuteError deprecation
 
 ## [0.53.0] - 2024-09-13
 ### Added
