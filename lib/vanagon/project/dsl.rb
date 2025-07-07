@@ -184,7 +184,7 @@ class Vanagon
         repo_object = Git.open(File.expand_path("..", @configdir))
         last_tag = repo_object.describe('HEAD', { :abbrev => 0 })
         release(repo_object.rev_list("#{last_tag}..HEAD", { :count => true }))
-      rescue Git::GitExecuteError
+      rescue Git::Error
         VanagonLogger.error "Directory '#{File.expand_path('..', @configdir)}' cannot be versioned by git. Maybe it hasn't been tagged yet?"
       end
 
@@ -195,7 +195,7 @@ class Vanagon
       def version_from_git
         git_version = Git.open(File.expand_path("..", @configdir)).describe('HEAD', tags: true, abbrev: 9)
         version(git_version.split('-').reject(&:empty?).join('.'))
-      rescue Git::GitExecuteError
+      rescue Git::Error
         VanagonLogger.error "Directory '#{File.expand_path('..', @configdir)}' cannot be versioned by git. Maybe it hasn't been tagged yet?"
       end
 
@@ -212,7 +212,7 @@ class Vanagon
         else
           fail "Can't find a version in your branch, make sure it matches <number>.<number>, like maint/1.7.0/fixing-some-bugs"
         end
-      rescue Git::GitExecuteError => e
+      rescue Git::Error => e
         fail "Something went wrong trying to find your git branch.\n#{e}"
       end
 
