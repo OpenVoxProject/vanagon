@@ -1,8 +1,6 @@
-require 'time'
-
 Gem::Specification.new do |gem|
   gem.name    = 'vanagon'
-  gem.version = %x(git describe --tags).tr('-', '.').chomp
+  gem.version = '0.54.0'
 
   gem.summary = 'Multiplatform build, sign, and ship for Puppet projects'
   gem.description = <<-DESCRIPTION
@@ -13,7 +11,7 @@ Gem::Specification.new do |gem|
   DESCRIPTION
   gem.license = 'Apache-2.0'
 
-  gem.authors  = ['Puppet By Perforce', 'OpenVoxProjec']
+  gem.authors  = ['Puppet By Perforce', 'OpenVoxProject']
   gem.email    = 'voxpupuli@groups.io'
   gem.homepage = 'http://github.com/OpenVoxProject/vanagon'
   gem.required_ruby_version = ['>= 3.2', '< 4']

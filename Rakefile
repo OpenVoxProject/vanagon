@@ -30,3 +30,24 @@ desc 'Run all spec tests and linters'
 task check: %w[test:spec rubocop]
 
 task default: :check
+
+begin
+  require 'github_changelog_generator/task'
+
+  GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+    config.header = <<~HEADER.chomp
+      # Changelog
+
+      All notable changes to this project will be documented in this file.
+    HEADER
+    config.user = 'openvoxproject'
+    config.project = 'vanagon'
+    config.exclude_labels = %w[dependencies duplicate question invalid wontfix wont-fix modulesync skip-changelog]
+    config.future_release = Gem::Specification.load("#{config.project}.gemspec").version
+    config.since_tag = '0.53.0' # last tag from Perforce
+  end
+rescue LoadError
+  task :changelog do
+    abort('Run `bundle install --with release` to install the `github_changelog_generator` gem.')
+  end
+end
