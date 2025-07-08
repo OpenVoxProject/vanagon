@@ -10,7 +10,7 @@ class Vanagon
         <<-HERE.undent
           mkdir -p /etc/homebrew
           cd /etc/homebrew
-          su test -c '#{@brew} install #{list_build_dependencies.join(' ')}'
+          sudo su test -c '#{@brew} install #{list_build_dependencies.join(' ')}'
         HERE
       end
 
