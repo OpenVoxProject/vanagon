@@ -54,6 +54,7 @@ class Vanagon
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == 'https'
+      http.ssl_version = :TLSv1_3
 
       case type.downcase
       when "get"
