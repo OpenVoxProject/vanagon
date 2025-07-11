@@ -18,7 +18,7 @@ platform "osx-14-x86_64" do |plat|
   plat.provision_with "sudo mkdir -p /etc/homebrew"
   plat.provision_with "cd /etc/homebrew"
   plat.provision_with "sudo createhomedir -c -u test"
-  if File.directory?("/usr/local/var/homebrew") || File.directory?("/usr/local/Homebrew")
+  if File.directory?("/usr/local/Homebrew")
     plat.provision_with "sudo chown -R test /usr/local/var/homebrew /usr/local/share/zsh /usr/local/share/zsh/site-functions \
     /usr/local/etc/bash_completion.d /usr/local/lib/pkgconfig /usr/local/share/aclocal /usr/local/share/locale"
   else
