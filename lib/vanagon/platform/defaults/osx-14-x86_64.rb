@@ -22,7 +22,8 @@ platform "osx-14-x86_64" do |plat|
     plat.provision_with "sudo chown -R test /usr/local/var/homebrew /usr/local/share/zsh /usr/local/share/zsh/site-functions \
     /usr/local/etc/bash_completion.d /usr/local/lib/pkgconfig /usr/local/share/aclocal /usr/local/share/locale"
   else
-    plat.provision_with %Q(sudo su test -c 'echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"')
+    puts "testing"
+    #plat.provision_with %Q(sudo su test -c 'echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"')
   end
   plat.vmpooler_template "macos-14-x86_64"
 end
