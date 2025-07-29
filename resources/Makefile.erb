@@ -45,12 +45,14 @@ file-list: file-list-before-build <%= @name %>-project
 <%- if @bill_of_materials -%>
 <%= @bill_of_materials.path %>:
 	sudo mkdir -p '<%= @bill_of_materials.path %>'
+	sudo chown `whoami` '<%= @bill_of_materials.path %>'
 	mv bill-of-materials '<%= @bill_of_materials.path %>'
 <%- end -%>
 
 <%- dirnames.each do |dir| -%>
 <%= dir %>: file-list-before-build
 	sudo mkdir -p '<%= dir %>'
+	sudo chown `whoami` '<%= dir %>'
 <%- end %>
 
 <%- if @cleanup -%>
