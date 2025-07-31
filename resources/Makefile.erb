@@ -51,6 +51,10 @@ file-list: file-list-before-build <%= @name %>-project
 <%- dirnames.each do |dir| -%>
 <%= dir %>: file-list-before-build
 	sudo mkdir -p '<%= dir %>'
+<%- end %>
+
+<%- dirnames.each do |dir| -%>
+<%= dir %>: file-list-before-build
 	sudo chown -R `whoami` '<%= dir %>'
 <%- end %>
 
