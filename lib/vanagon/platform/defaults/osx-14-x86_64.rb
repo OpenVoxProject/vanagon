@@ -20,7 +20,7 @@ platform "osx-14-x86_64" do |plat|
   plat.provision_with "sudo createhomedir -c -u test"
   if File.directory?("/usr/local/var/homebrew")
     plat.provision_with "sudo chown -R test /usr/local/var/homebrew /usr/local/share/zsh /usr/local/share/zsh/site-functions \
-    /usr/local/etc/bash_completion.d /usr/local/lib/pkgconfig /usr/local/share/aclocal /usr/local/share/locale"
+    /usr/local/etc/bash_completion.d /usr/local/lib/pkgconfig /usr/local/share/aclocal /usr/local/share/locale /usr/local/include /usr/local/lib"
 
     # MacOS changing ownership of the files inside the directories, but not the directory ownership itself
     plat.provision_with "sudo chown test /usr/local/var/homebrew /usr/local/share/zsh /usr/local/share/zsh/site-functions \
