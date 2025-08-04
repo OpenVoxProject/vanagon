@@ -220,20 +220,41 @@ class Vanagon
 
         # Install the service and default files
         if options[:link_target]
-          install_file(service_file, options[:link_target], mode: target_mode)
+          sudo_install_file(service_file, options[:link_target], mode: target_mode)
           link options[:link_target], target_service_file
         else
-          install_file(service_file, target_service_file, mode: target_mode)
+          sudo_install_file(service_file, target_service_file, mode: target_mode)
         end
 
         if default_file
-          install_file(default_file, target_default_file, mode: default_mode)
+          sudo_install_file(default_file, target_default_file, mode: default_mode)
           configfile target_default_file
         end
 
         # Register the service for use in packaging
         @component.service << OpenStruct.new(:name => service_name, :service_file => target_service_file,
                                              :type => options[:service_type], :init_system => init_system)
+      end
+
+      # Copies a file from source to target during the install phase of the component using sudo
+      # Used for times when we need to install files to elevated locations such as service files
+      # @param source [String] path to the file to copy
+      # @param target [String] path to the desired target of the file
+      # @param owner  [String] owner of the file
+      # @param group  [String] group owner of the file
+      def sudo_install_file(source, target, mode: nil, owner: nil, group: nil) # rubocop:disable Metrics/AbcSize
+        @component.install << "sudo #{@component.platform.install} -d '#{File.dirname(target)}'"
+        @component.install << "sudo #{@component.platform.copy} -p '#{source}' '#{target}'"
+
+        if @component.platform.is_windows?
+          unless mode.nil? && owner.nil? && group.nil?
+            VanagonLogger.info "You're trying to set the mode, owner, or group for windows. I don't know how to do that, ignoring!"
+          end
+        else
+          mode ||= '0644'
+          @component.install << "sudo chmod #{mode} '#{target}'"
+        end
+        @component.add_file Vanagon::Common::Pathname.file(target, mode: mode, owner: owner, group: group)
       end
 
       # Copies a file from source to target during the install phase of the component
@@ -252,7 +273,7 @@ class Vanagon
           end
         else
           mode ||= '0644'
-          @component.install << "chmod #{mode} '#{target}'"
+          @component.install << "sudo chmod #{mode} '#{target}'"
         end
         @component.add_file Vanagon::Common::Pathname.file(target, mode: mode, owner: owner, group: group)
       end
