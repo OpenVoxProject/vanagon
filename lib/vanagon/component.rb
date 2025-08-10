@@ -8,6 +8,7 @@ require 'vanagon/logger'
 class Vanagon
   class Component
     include Vanagon::Utilities
+
     # @!attribute [r] files
     #   @return [Set] the list of files marked for installation
 

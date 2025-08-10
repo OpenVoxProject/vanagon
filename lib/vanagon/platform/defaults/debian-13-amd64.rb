@@ -2,7 +2,7 @@ platform "debian-13-amd64" do |plat|
   plat.servicedir "/lib/systemd/system"
   plat.defaultdir "/etc/default"
   plat.servicetype "systemd"
-  plat.codename "bookworm"
+  plat.codename "trixie"
 
   packages = %w(
     build-essential
