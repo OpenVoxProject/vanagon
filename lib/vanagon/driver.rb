@@ -11,6 +11,7 @@ require 'logger'
 class Vanagon
   class Driver
     include Vanagon::Utilities
+
     attr_accessor :platform, :project, :target, :workdir, :remote_workdir, :verbose, :preserve, :keepwork
 
     def timeout

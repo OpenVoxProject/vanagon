@@ -12,6 +12,7 @@ class Vanagon
   # correspond to assumptions you could safely make about Ruby.
   class Environment
     extend Forwardable
+
     # @!method []
     #   @see Hash#[]
     # @!method keys
