@@ -48,9 +48,10 @@ file-list: file-list-before-build <%= @name %>-project
 	mv bill-of-materials '<%= @bill_of_materials.path %>'
 <%- end -%>
 
-<%- dirnames.each do |dir| -%>
+<%- dirnames.reverse.each do |dir| -%>
 <%= dir %>: file-list-before-build
-	mkdir -p '<%= dir %>'
+	sudo mkdir -p '<%= dir %>'
+	sudo chown -R `whoami` '<%= dir %>'
 <%- end %>
 
 <%- if @cleanup -%>
