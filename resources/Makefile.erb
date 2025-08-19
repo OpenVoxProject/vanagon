@@ -50,8 +50,8 @@ file-list: file-list-before-build <%= @name %>-project
 
 <%- dirnames.reverse.each do |dir| -%>
 <%= dir %>: file-list-before-build
-	sudo mkdir -p '<%= dir %>'
-	sudo chown -R `whoami` '<%= dir %>'
+	$(command -v sudo) mkdir -p '<%= dir %>'
+	$(command -v sudo) chown -R `id -u` '<%= dir %>'
 <%- end %>
 
 <%- if @cleanup -%>
