@@ -244,13 +244,10 @@ class Vanagon
       # @param group  [String] group owner of the file
       # # @param sudo   [Boolean] whether to use sudo to create the file and set mode
       def install_file(source, target, mode: nil, owner: nil, group: nil, sudo: false) # rubocop:disable Metrics/AbcSize
-        if sudo == true
-          @component.install << "#{sudo_bin} #{@component.platform.install} -d '#{File.dirname(target)}'"
-          @component.install << "#{sudo_bin} #{@component.platform.copy} -p '#{source}' '#{target}'"
-        else
-          @component.install << "#{@component.platform.install} -d '#{File.dirname(target)}'"
-          @component.install << "#{@component.platform.copy} -p '#{source}' '#{target}'"
-        end
+        sudo_check = sudo ? "#{sudo_bin} " : ""
+
+        @component.install << "#{sudo_check}#{@component.platform.install} -d '#{File.dirname(target)}'"
+        @component.install << "#{sudo_check}#{@component.platform.copy} -p '#{source}' '#{target}'"
 
         if @component.platform.is_windows?
           unless mode.nil? && owner.nil? && group.nil?
@@ -258,11 +255,7 @@ class Vanagon
           end
         else
           mode ||= '0644'
-          if sudo == true
-            @component.install << "#{sudo_bin} chmod #{mode} '#{target}'"
-          else
-            @component.install << "chmod #{mode} '#{target}'"
-          end
+          @component.install << "#{sudo_check} chmod #{mode} '#{target}'"
         end
         @component.add_file Vanagon::Common::Pathname.file(target, mode: mode, owner: owner, group: group)
       end
