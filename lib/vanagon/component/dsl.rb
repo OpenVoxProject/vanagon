@@ -220,14 +220,14 @@ class Vanagon
 
         # Install the service and default files
         if options[:link_target]
-          install_file(service_file, options[:link_target], mode: target_mode)
+          install_file(service_file, options[:link_target], mode: target_mode, sudo: true)
           link options[:link_target], target_service_file
         else
-          install_file(service_file, target_service_file, mode: target_mode)
+          install_file(service_file, target_service_file, mode: target_mode, sudo: true)
         end
 
         if default_file
-          install_file(default_file, target_default_file, mode: default_mode)
+          install_file(default_file, target_default_file, mode: default_mode, sudo: true)
           configfile target_default_file
         end
 
@@ -242,9 +242,12 @@ class Vanagon
       # @param target [String] path to the desired target of the file
       # @param owner  [String] owner of the file
       # @param group  [String] group owner of the file
-      def install_file(source, target, mode: nil, owner: nil, group: nil) # rubocop:disable Metrics/AbcSize
-        @component.install << "#{@component.platform.install} -d '#{File.dirname(target)}'"
-        @component.install << "#{@component.platform.copy} -p '#{source}' '#{target}'"
+      # # @param sudo   [Boolean] whether to use sudo to create the file and set mode
+      def install_file(source, target, mode: nil, owner: nil, group: nil, sudo: false) # rubocop:disable Metrics/AbcSize
+        sudo_check = sudo ? "#{sudo_bin} " : ""
+
+        @component.install << "#{sudo_check}#{@component.platform.install} -d '#{File.dirname(target)}'"
+        @component.install << "#{sudo_check}#{@component.platform.copy} -p '#{source}' '#{target}'"
 
         if @component.platform.is_windows?
           unless mode.nil? && owner.nil? && group.nil?
@@ -252,7 +255,7 @@ class Vanagon
           end
         else
           mode ||= '0644'
-          @component.install << "chmod #{mode} '#{target}'"
+          @component.install << "#{sudo_check} chmod #{mode} '#{target}'"
         end
         @component.add_file Vanagon::Common::Pathname.file(target, mode: mode, owner: owner, group: group)
       end
