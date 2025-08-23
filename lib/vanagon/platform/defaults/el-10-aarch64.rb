@@ -23,6 +23,6 @@ platform "el-10-aarch64" do |plat|
   )
   plat.provision_with "dnf install -y --allowerasing #{packages.join(' ')} && dnf config-manager --set-enabled crb"
   plat.install_build_dependencies_with "dnf install -y --allowerasing "
-  plat.docker_image "almalinux:10-kitten"
+  plat.docker_image "almalinux:10"
   plat.docker_arch "linux/arm64"
 end
