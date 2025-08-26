@@ -1,6 +1,7 @@
 require 'vanagon/component'
 require 'vanagon/logger'
 require 'vanagon/patch'
+require 'vanagon/utilities'
 require 'ostruct'
 require 'json'
 require 'time'
