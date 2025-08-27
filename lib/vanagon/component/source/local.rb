@@ -32,7 +32,7 @@ class Vanagon
           # once upon a time we allowed specifying files with no strong
           # specifications for where they should be located.
           def mangle(path)
-            path.gsub(%r{^file://}, '')
+            File.absolute_path(path.gsub(%r{^file://}, ''))
           end
 
           def archive_extensions
