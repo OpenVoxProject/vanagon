@@ -9,6 +9,8 @@ require 'time'
 class Vanagon
   class Component
     class DSL
+      include Vanagon::Utilities
+
       # Constructor for the DSL object
       #
       # @param name [String] name of the component
