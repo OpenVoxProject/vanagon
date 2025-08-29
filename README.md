@@ -85,7 +85,7 @@ For more detailed examples of the DSLs available, please see the
 
 ### CLI commands
 
-The vanagon command line tool contains these commands: 
+The vanagon command line tool contains these commands:
 
 * `build`               build a package given a project and platform
 * `build_host_info`     print information about build hosts
@@ -98,7 +98,7 @@ The vanagon command line tool contains these commands:
 * `ship`                upload a package to a distribution server
 * `help`                print this help
 
-Commands are called with a git-like pattern of `vanagon <subcommand>`. 
+Commands are called with a git-like pattern of `vanagon <subcommand>`.
 For example: `vanagon list`
 
 ### CLI changes and deprecations (from version 0.16.0)
@@ -335,7 +335,7 @@ end
 ```
 
 ### ABS (internal)
-When using the ABS engine, there is a variety of ways you can specify your token: 
+When using the ABS engine, there is a variety of ways you can specify your token:
 - the environment variable ABS_TOKEN
 - or vanagon token file ~/.vanagon-token (note this is the same file read by the pooler engine)
 - or [vmfloaty](https://github.com/puppetlabs/vmfloaty)'s config file ~/.vmfloaty.yml
