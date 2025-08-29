@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name    = 'vanagon'
-  gem.version = '0.54.0'
+  gem.version = '1.0.0'
 
   gem.summary = 'Multiplatform build, sign, and ship for Puppet projects'
   gem.description = <<-DESCRIPTION

@@ -2,7 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.54.0](https://github.com/openvoxproject/vanagon/tree/0.54.0) (2025-07-07)
+## [1.0.0](https://github.com/openvoxproject/vanagon/tree/1.0.0) (2025-08-29)
+
+[Full Changelog](https://github.com/openvoxproject/vanagon/compare/0.54.0...1.0.0)
+
+**Breaking changes:**
+
+- Remove old platforms, update el10 and deb13 to release images [\#49](https://github.com/OpenVoxProject/vanagon/pull/49) ([nmburgan](https://github.com/nmburgan))
+
+**Implemented enhancements:**
+
+- Expand local url path [\#50](https://github.com/OpenVoxProject/vanagon/pull/50) ([nmburgan](https://github.com/nmburgan))
+- Add Ubuntu 25.04 [\#48](https://github.com/OpenVoxProject/vanagon/pull/48) ([genebean](https://github.com/genebean))
+- Tweaks for redhatfips for OpenVox [\#47](https://github.com/OpenVoxProject/vanagon/pull/47) ([nmburgan](https://github.com/nmburgan))
+
+**Fixed bugs:**
+
+- Respect Provides version in Debian control files [\#51](https://github.com/OpenVoxProject/vanagon/pull/51) ([ekohl](https://github.com/ekohl))
+- fix platform codename for debian-13-amd64 [\#43](https://github.com/OpenVoxProject/vanagon/pull/43) ([trefzer](https://github.com/trefzer))
+- feat!: remove unnecessary dependencies from RPM spec [\#38](https://github.com/OpenVoxProject/vanagon/pull/38) ([TheMeier](https://github.com/TheMeier))
+
+**Merged pull requests:**
+
+- Cleanup Rakefile dependencies [\#54](https://github.com/OpenVoxProject/vanagon/pull/54) ([bastelfreak](https://github.com/bastelfreak))
+
+## [0.54.0](https://github.com/openvoxproject/vanagon/tree/0.54.0) (2025-07-08)
 
 [Full Changelog](https://github.com/openvoxproject/vanagon/compare/0.53.0...0.54.0)
 
