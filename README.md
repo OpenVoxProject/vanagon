@@ -1,5 +1,9 @@
-![Build Status](https://travis-ci.org/puppetlabs/vanagon.svg?branch=master)
 # The Vanagon Project
+
+[![License](https://img.shields.io/github/license/OpenVoxProject/vanagon.svg)](https://github.com/OpenVoxProject/vanagon/blob/main/LICENSE)
+[![Test](https://github.com/OpenVoxProject/vanagon/actions/workflows/ruby.yml/badge.svg)](https://github.com/OpenVoxProject/vanagon/actions/workflows/ruby.yml)
+[![Release](https://github.com/OpenVoxProject/vanagon/actions/workflows/release.yml/badge.svg)](https://github.com/OpenVoxProject/vanagon/actions/workflows/release.yml)
+[![RubyGem Version](https://img.shields.io/github/v/release/OpenVoxProject/vanagon)](https://github.com/OpenVoxProject/vanagon/releases)
 
 <!-- MarkdownTOC -->
 
