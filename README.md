@@ -1,5 +1,9 @@
-![Build Status](https://travis-ci.org/puppetlabs/vanagon.svg?branch=master)
 # The Vanagon Project
+
+[![License](https://img.shields.io/github/license/OpenVoxProject/vanagon.svg)](https://github.com/OpenVoxProject/vanagon/blob/main/LICENSE)
+[![Test](https://github.com/OpenVoxProject/vanagon/actions/workflows/ruby.yml/badge.svg)](https://github.com/OpenVoxProject/vanagon/actions/workflows/ruby.yml)
+[![Release](https://github.com/OpenVoxProject/vanagon/actions/workflows/release.yml/badge.svg)](https://github.com/OpenVoxProject/vanagon/actions/workflows/release.yml)
+[![RubyGem Version](https://img.shields.io/github/v/release/OpenVoxProject/vanagon)](https://github.com/OpenVoxProject/vanagon/releases)
 
 <!-- MarkdownTOC -->
 
@@ -45,10 +49,8 @@ Also, Vanagon ships with a number of engines which may include additional option
 
 ### Local Host:
 
-- [Ruby](https://www.ruby-lang.org/en/) (Ruby 2.3.x is the miniumum supported version)
-- [fustigit](https://github.com/mckern/fustigit)
-- [ruby-git](https://github.com/schacon/ruby-git)
-- [docopt](https://github.com/docopt/docopt.rb)
+- [Ruby](https://www.ruby-lang.org/en/) (Ruby 3.2 is the miniumum supported version)
+- [bundler](https://bundler.io/), used to install Ruby dependencies from Gemfile/gemspec
 - The command line tool `ssh` ([homepage](https://www.openssh.com/)) available on the local `${PATH}` (any modern version should suffice)
 - The command line tool `rsync` ([homepage](https://rsync.samba.org/)) available on the local `${PATH}` (At least rsync 2.6.x)
 - The command line tool `git` ([homepage](https://git-scm.com/)) available on the local `${PATH}` (Vanagon is tested against Git version 1.8.x but should work with any newer version)
@@ -87,7 +89,7 @@ For more detailed examples of the DSLs available, please see the
 
 ### CLI commands
 
-The vanagon command line tool contains these commands: 
+The vanagon command line tool contains these commands:
 
 * `build`               build a package given a project and platform
 * `build_host_info`     print information about build hosts
@@ -100,7 +102,7 @@ The vanagon command line tool contains these commands:
 * `ship`                upload a package to a distribution server
 * `help`                print this help
 
-Commands are called with a git-like pattern of `vanagon <subcommand>`. 
+Commands are called with a git-like pattern of `vanagon <subcommand>`.
 For example: `vanagon list`
 
 ### CLI changes and deprecations (from version 0.16.0)
@@ -337,7 +339,7 @@ end
 ```
 
 ### ABS (internal)
-When using the ABS engine, there is a variety of ways you can specify your token: 
+When using the ABS engine, there is a variety of ways you can specify your token:
 - the environment variable ABS_TOKEN
 - or vanagon token file ~/.vanagon-token (note this is the same file read by the pooler engine)
 - or [vmfloaty](https://github.com/puppetlabs/vmfloaty)'s config file ~/.vmfloaty.yml
