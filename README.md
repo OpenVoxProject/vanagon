@@ -45,10 +45,8 @@ Also, Vanagon ships with a number of engines which may include additional option
 
 ### Local Host:
 
-- [Ruby](https://www.ruby-lang.org/en/) (Ruby 2.3.x is the miniumum supported version)
-- [fustigit](https://github.com/mckern/fustigit)
-- [ruby-git](https://github.com/schacon/ruby-git)
-- [docopt](https://github.com/docopt/docopt.rb)
+- [Ruby](https://www.ruby-lang.org/en/) (Ruby 3.2 is the miniumum supported version)
+- [bundler](https://bundler.io/), used to install Ruby dependencies from Gemfile/gemspec
 - The command line tool `ssh` ([homepage](https://www.openssh.com/)) available on the local `${PATH}` (any modern version should suffice)
 - The command line tool `rsync` ([homepage](https://rsync.samba.org/)) available on the local `${PATH}` (At least rsync 2.6.x)
 - The command line tool `git` ([homepage](https://git-scm.com/)) available on the local `${PATH}` (Vanagon is tested against Git version 1.8.x but should work with any newer version)
