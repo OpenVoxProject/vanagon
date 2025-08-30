@@ -15,10 +15,11 @@ platform 'osx-15-arm64' do |plat|
     plat.provision_with 'sudo dscl . -create /Users/test NFSHomeDirectory /Users/test'
     plat.provision_with 'sudo dscl . -passwd /Users/test password'
     plat.provision_with 'sudo dscl . -merge /Groups/admin GroupMembership test'
-    plat.provision_with 'echo "test ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/username'
-    plat.provision_with 'mkdir -p /etc/homebrew'
+    plat.provision_with 'echo "test ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/username > /dev/null'
+    plat.provision_with 'sudo mkdir -p /etc/homebrew'
     plat.provision_with 'cd /etc/homebrew'
-    plat.provision_with 'createhomedir -c -u test'
-    plat.provision_with 'su test -c \'echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\''
+    plat.provision_with 'sudo createhomedir -c -u test'
+    plat.provision_with %Q(sudo su test -c 'echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"') unless File.directory?('/opt/homebrew')
+    plat.provision_with 'sudo chown -R test /opt/homebrew'
     plat.vmpooler_template 'macos-15-arm64'
   end
