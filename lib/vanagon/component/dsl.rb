@@ -270,7 +270,7 @@ class Vanagon
       def configfile(file, mode: nil, owner: nil, group: nil)
         # I AM SO SORRY
         @component.delete_file file
-        if @component.platform.name =~ /solaris-10|osx/
+        if @component.platform.name =~ /solaris-10|macos/
           @component.install << "mv '#{file}' '#{file}.pristine'"
           @component.add_file Vanagon::Common::Pathname.configfile("#{file}.pristine", mode: mode, owner: owner, group: group)
         else

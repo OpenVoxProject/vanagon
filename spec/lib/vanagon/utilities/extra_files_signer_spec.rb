@@ -4,7 +4,7 @@ require 'vanagon/utilities/extra_files_signer'
 
 describe Vanagon::Utilities::ExtraFilesSigner do
   let(:platform_block) do
-    %( platform "osx-11-x86_64" do |plat|
+    %( platform "macos-all-x86_64" do |plat|
     end
     )
   end
@@ -16,7 +16,7 @@ describe Vanagon::Utilities::ExtraFilesSigner do
     HERE
   end
   let(:configdir) { '/a/b/c' }
-  let(:platform) { Vanagon::Platform::DSL.new('osx-11-x86_64') }
+  let(:platform) { Vanagon::Platform::DSL.new('macos-all-x86_64') }
   let(:project) do
     Vanagon::Project::DSL.new('test-fixture', configdir, platform._platform, [])
   end

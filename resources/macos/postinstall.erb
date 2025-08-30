@@ -27,7 +27,7 @@ if [ -d "/tmp/.<%= @name %>.upgrade" ]; then
 fi
 <%- end -%>
 
-<%= File.read("resources/osx/postinstall-extras") if File.exist?("resources/osx/postinstall-extras") %>
+<%= File.read("resources/macos/postinstall-extras") if File.exist?("resources/macos/postinstall-extras") %>
 
 # Cleanup after ourselves
 if [ -e "/tmp/.<%= @name %>.upgrade" ]; then

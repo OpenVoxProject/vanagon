@@ -1,4 +1,4 @@
-platform 'osx-15-arm64' do |plat|
+platform 'macos-all-arm64' do |plat|
     plat.brew '/opt/homebrew/bin/brew'
     plat.servicetype 'launchd'
     plat.servicedir '/Library/LaunchDaemons'

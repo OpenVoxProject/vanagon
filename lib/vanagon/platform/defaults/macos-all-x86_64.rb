@@ -1,4 +1,4 @@
-platform "osx-15-x86_64" do |plat|
+platform "macos-all-x86_64" do |plat|
   plat.servicetype "launchd"
   plat.servicedir "/Library/LaunchDaemons"
   plat.codename "sequoia"

@@ -490,8 +490,8 @@ end"
       allow_any_instance_of(Vanagon::Project::DSL).to receive(:puts)
       @el_plat = Vanagon::Platform::DSL.new('el-6-x86_64')
       @el_plat.instance_eval("platform 'el-6-x86_64' do |plat| end")
-      @osx_plat = Vanagon::Platform::DSL.new('osx-10.10-x86_64')
-      @osx_plat.instance_eval("platform 'osx-10.10-x86_64' do |plat| end")
+      @macos_plat = Vanagon::Platform::DSL.new('macos-all-x86_64')
+      @macos_plat.instance_eval("platform 'macos-all-x86_64' do |plat| end")
 
     end
 
@@ -502,7 +502,7 @@ end"
     end
 
     it 'fails on usupported platforms' do
-      proj = Vanagon::Project::DSL.new('test-fixture', configdir, @osx_plat._platform, [])
+      proj = Vanagon::Project::DSL.new('test-fixture', configdir, @macos_plat._platform, [])
       expect{ proj.instance_eval(project_block) }.to raise_error(RuntimeError)
     end
   end
