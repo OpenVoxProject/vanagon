@@ -7,11 +7,7 @@ class Vanagon
       # @param build_dependencies [Array] list of all build dependencies to install
       # @return [String] a command to install all of the build dependencies
       def install_build_dependencies(list_build_dependencies)
-        <<-HERE.undent
-          mkdir -p /etc/homebrew
-          cd /etc/homebrew
-          sudo su test -c '#{@brew} install #{list_build_dependencies.join(' ')}'
-        HERE
+        "#{@brew} install #{list_build_dependencies.join(' ')}"
       end
 
       # The specific bits used to generate a osx package for a given project
