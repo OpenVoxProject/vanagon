@@ -312,7 +312,7 @@ class Vanagon
     # Method to check for the sudo command if it exists
     # Used to ensure builds inside containers that lack sudo binary don't fail
     def sudo_bin
-      '$(command -v sudo)'
+      '$$(command -v sudo)'
     end
   end
 end
