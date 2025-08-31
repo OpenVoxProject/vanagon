@@ -224,7 +224,7 @@ class Vanagon
         # Install the service and default files
         if options[:link_target]
           install_file(service_file, options[:link_target], mode: target_mode, sudo: true)
-          link options[:link_target], target_service_file
+          link options[:link_target], target_service_file, sudo: true
         else
           install_file(service_file, target_service_file, mode: target_mode, sudo: true)
         end
@@ -258,7 +258,7 @@ class Vanagon
           end
         else
           mode ||= '0644'
-          @component.install << "#{sudo_check} chmod #{mode} '#{target}'"
+          @component.install << "#{sudo_check}chmod #{mode} '#{target}'"
         end
         @component.add_file Vanagon::Common::Pathname.file(target, mode: mode, owner: owner, group: group)
       end
@@ -291,8 +291,9 @@ class Vanagon
       #
       # @param source [String] path to the file to symlink
       # @param target [String] path to the desired symlink
-      def link(source, target)
-        @component.install << "#{@component.platform.install} -d '#{File.dirname(target)}'"
+      def link(source, target, sudo: false)
+        sudo_check = sudo ? "#{sudo_bin} " : ""
+        @component.install << "#{sudo_check}#{@component.platform.install} -d '#{File.dirname(target)}'"
         # Use a bash conditional to only create the link if it doesn't already point to the correct source.
         # This allows rerunning the install step to be idempotent, rather than failing because the link
         # already exists.
