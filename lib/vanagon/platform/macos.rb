@@ -188,7 +188,7 @@ class Vanagon
       # @param project [Vanagon::Project] project to name
       # @return [String] name of the MacOS package for this project
       def package_name(project)
-        "#{project.name}-#{project.version}-#{project.release}.#{@os_name}#{@os_version}.dmg"
+        "#{project.name}-#{project.version}-#{project.release}.#{@os_name}.#{@os_version}.#{@architecture}.dmg"
       end
 
       # Constructor. Sets up some defaults for the MacOS platform and calls the parent constructor
