@@ -1,6 +1,7 @@
 require 'vanagon/component'
 require 'vanagon/logger'
 require 'vanagon/patch'
+require 'vanagon/utilities'
 require 'ostruct'
 require 'json'
 require 'time'
@@ -8,6 +9,8 @@ require 'time'
 class Vanagon
   class Component
     class DSL
+      include Vanagon::Utilities
+
       # Constructor for the DSL object
       #
       # @param name [String] name of the component
@@ -220,14 +223,14 @@ class Vanagon
 
         # Install the service and default files
         if options[:link_target]
-          install_file(service_file, options[:link_target], mode: target_mode)
-          link options[:link_target], target_service_file
+          install_file(service_file, options[:link_target], mode: target_mode, sudo: true)
+          link options[:link_target], target_service_file, sudo: true
         else
-          install_file(service_file, target_service_file, mode: target_mode)
+          install_file(service_file, target_service_file, mode: target_mode, sudo: true)
         end
 
         if default_file
-          install_file(default_file, target_default_file, mode: default_mode)
+          install_file(default_file, target_default_file, mode: default_mode, sudo: true)
           configfile target_default_file
         end
 
@@ -242,9 +245,12 @@ class Vanagon
       # @param target [String] path to the desired target of the file
       # @param owner  [String] owner of the file
       # @param group  [String] group owner of the file
-      def install_file(source, target, mode: nil, owner: nil, group: nil) # rubocop:disable Metrics/AbcSize
-        @component.install << "#{@component.platform.install} -d '#{File.dirname(target)}'"
-        @component.install << "#{@component.platform.copy} -p '#{source}' '#{target}'"
+      # # @param sudo   [Boolean] whether to use sudo to create the file and set mode
+      def install_file(source, target, mode: nil, owner: nil, group: nil, sudo: false) # rubocop:disable Metrics/AbcSize
+        sudo_check = sudo ? "#{sudo_bin} " : ""
+
+        @component.install << "#{sudo_check}#{@component.platform.install} -d '#{File.dirname(target)}'"
+        @component.install << "#{sudo_check}#{@component.platform.copy} -p '#{source}' '#{target}'"
 
         if @component.platform.is_windows?
           unless mode.nil? && owner.nil? && group.nil?
@@ -252,7 +258,7 @@ class Vanagon
           end
         else
           mode ||= '0644'
-          @component.install << "chmod #{mode} '#{target}'"
+          @component.install << "#{sudo_check}chmod #{mode} '#{target}'"
         end
         @component.add_file Vanagon::Common::Pathname.file(target, mode: mode, owner: owner, group: group)
       end
@@ -264,7 +270,7 @@ class Vanagon
       def configfile(file, mode: nil, owner: nil, group: nil)
         # I AM SO SORRY
         @component.delete_file file
-        if @component.platform.name =~ /solaris-10|osx/
+        if @component.platform.name =~ /solaris-10|macos/
           @component.install << "mv '#{file}' '#{file}.pristine'"
           @component.add_file Vanagon::Common::Pathname.configfile("#{file}.pristine", mode: mode, owner: owner, group: group)
         else
@@ -285,8 +291,9 @@ class Vanagon
       #
       # @param source [String] path to the file to symlink
       # @param target [String] path to the desired symlink
-      def link(source, target)
-        @component.install << "#{@component.platform.install} -d '#{File.dirname(target)}'"
+      def link(source, target, sudo: false)
+        sudo_check = sudo ? "#{sudo_bin} " : ""
+        @component.install << "#{sudo_check}#{@component.platform.install} -d '#{File.dirname(target)}'"
         # Use a bash conditional to only create the link if it doesn't already point to the correct source.
         # This allows rerunning the install step to be idempotent, rather than failing because the link
         # already exists.

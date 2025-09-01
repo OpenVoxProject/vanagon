@@ -257,7 +257,7 @@ class Vanagon
         @project.license = lic
       end
 
-      # Sets the identifier for the project. Mainly for use in OSX packaging.
+      # Sets the identifier for the project. Mainly for use in MacOS packaging.
       #
       # @param ident [String] uses the reverse-domain naming convention
       def identifier(ident)

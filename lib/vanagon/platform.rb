@@ -435,22 +435,11 @@ class Vanagon
       return !!@name.match(/^cisco-wrlinux-.*$/)
     end
 
-    # Utility matcher to determine if the platform is an osx variety
+    # Utility matcher to determine if the platform is a macos variety
     #
-    # @deprecated Please use is_macos? instead
-    # @return [true, false] true if it is an osx variety, false otherwise
-    def is_osx?
-      VanagonLogger.info "is_osx? is a deprecated method, please use #is_macos? instead."
-      is_macos?
-    end
-
-    # Utility matcher to determine if the platform is a macos or osx variety
-    # is_osx is a deprecated method that calls is_macos
-    # We still match for osx currently but this will change
-    #
-    # @return [true, false] true if it is a macos or osx variety, false otherwise
+    # @return [true, false] true if it is a macos variety, false otherwise
     def is_macos?
-      !!(@name =~ /^macos-.*$/ || @name =~ /^osx-.*$/)
+      !!(@name =~ /^macos-.*$/)
     end
 
     # Utility matcher to determine is the platform is a solaris variety
@@ -464,7 +453,7 @@ class Vanagon
     #
     # @return [true, false] true if it is a unix variety, false otherwise
     def is_unix?
-      return !!@name.match(/^(solaris|aix|osx)-.*$/)
+      return !!@name.match(/^(solaris|aix|macos)-.*$/)
     end
 
     # Utility matcher to determine is the platform is a windows variety
@@ -550,7 +539,7 @@ class Vanagon
         "mkdir #{archive_directory}",
         "gunzip -c #{name_and_version}.tar.gz | '#{tar}' -C #{archive_directory} -xf -",
         "rm #{name_and_version}.tar.gz",
-        "cd #{archive_directory}/#{name_and_version}; #{bill_of_materials_command}; #{tar} cf ../../#{name_and_version_and_platform}.tar *",
+        "cd #{archive_directory}/#{name_and_version}; #{bill_of_materials_command}; #{sudo_bin} chown -R 0:0 #{archive_directory}; #{tar} cf ../../#{name_and_version_and_platform}.tar *",
         "gzip -9c #{name_and_version_and_platform}.tar > #{name_and_version_and_platform}.tar.gz",
         "cp build_metadata.#{name_and_platform}.json output/#{name_and_version_and_platform}.json",
         "cp bill-of-materials output/#{name_and_version_and_platform}-bill-of-materials ||:",

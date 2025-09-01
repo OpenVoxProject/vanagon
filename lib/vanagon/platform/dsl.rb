@@ -4,7 +4,7 @@ require 'vanagon/platform/rpm/aix'
 require 'vanagon/platform/rpm/sles'
 require 'vanagon/platform/rpm/wrl'
 require 'vanagon/platform/rpm/eos'
-require 'vanagon/platform/osx'
+require 'vanagon/platform/macos'
 require 'vanagon/platform/solaris_10'
 require 'vanagon/platform/solaris_11'
 require 'vanagon/platform/windows'
@@ -46,8 +46,8 @@ class Vanagon
                       Vanagon::Platform::DEB.new(@name)
                     when /^eos-/
                       Vanagon::Platform::RPM::EOS.new(@name)
-                    when /^osx-/
-                      Vanagon::Platform::OSX.new(@name)
+                    when /^macos-/
+                      Vanagon::Platform::MacOS.new(@name)
                     when /^solaris-10/
                       Vanagon::Platform::Solaris10.new(@name)
                     when /^solaris-11/

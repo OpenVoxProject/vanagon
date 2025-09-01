@@ -573,12 +573,12 @@ end" }
       comp = Vanagon::Component::DSL.new('service-test', {}, dummy_platform_sysv)
       comp.install_service('component-client.init', 'component-client.sysconfig')
       # Look for servicedir creation and copy
-      expect(comp._component.install).to include("install -d '/etc/init.d'")
-      expect(comp._component.install).to include("cp -p 'component-client.init' '/etc/init.d/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/etc/init.d'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.init' '/etc/init.d/service-test'")
 
       # Look for defaultdir creation and copy
-      expect(comp._component.install).to include("install -d '/etc/default'")
-      expect(comp._component.install).to include("cp -p 'component-client.sysconfig' '/etc/default/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/etc/default'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.sysconfig' '/etc/default/service-test'")
 
       # Look for files and configfiles
       expect(comp._component.configfiles).to include(Vanagon::Common::Pathname.configfile('/etc/default/service-test'))
@@ -600,12 +600,12 @@ end" }
       comp = Vanagon::Component::DSL.new('service-test', {}, dummy_platform_systemd)
       comp.install_service('component-client.service', 'component-client.sysconfig')
       # Look for servicedir creation and copy
-      expect(comp._component.install).to include("install -d '/usr/lib/systemd/system'")
-      expect(comp._component.install).to include("cp -p 'component-client.service' '/usr/lib/systemd/system/service-test.service'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/usr/lib/systemd/system'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.service' '/usr/lib/systemd/system/service-test.service'")
 
       # Look for defaultdir creation and copy
-      expect(comp._component.install).to include("install -d '/etc/default'")
-      expect(comp._component.install).to include("cp -p 'component-client.sysconfig' '/etc/default/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/etc/default'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.sysconfig' '/etc/default/service-test'")
 
       # Look for files and configfiles
       expect(comp._component.configfiles).to include(Vanagon::Common::Pathname.configfile('/etc/default/service-test'))
@@ -620,16 +620,16 @@ end" }
       comp.install_service('component-client.init', 'component-client.sysconfig', init_system: 'sysv')
       comp.install_service('component-client.service', 'component-client.sysconfig', init_system: 'systemd')
       # Look for servicedir creation and copy - sysv
-      expect(comp._component.install).to include("install -d '/etc/init.d'")
-      expect(comp._component.install).to include("cp -p 'component-client.init' '/etc/init.d/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/etc/init.d'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.init' '/etc/init.d/service-test'")
 
       # Look for servicedir creation and copy - systemd
-      expect(comp._component.install).to include("install -d '/usr/lib/systemd/system'")
-      expect(comp._component.install).to include("cp -p 'component-client.service' '/usr/lib/systemd/system/service-test.service'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/usr/lib/systemd/system'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.service' '/usr/lib/systemd/system/service-test.service'")
 
       # Look for defaultdir creation and copy
-      expect(comp._component.install).to include("install -d '/etc/default'")
-      expect(comp._component.install).to include("cp -p 'component-client.sysconfig' '/etc/default/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/etc/default'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.sysconfig' '/etc/default/service-test'")
 
       # Look for files and configfiles - sysv
       expect(comp._component.configfiles).to include(Vanagon::Common::Pathname.configfile('/etc/default/service-test'))
@@ -646,12 +646,12 @@ end" }
       comp = Vanagon::Component::DSL.new('service-test', {}, dummy_platform_smf)
       comp.install_service('service.xml', 'service-default-file', service_type: 'network')
       # Look for servicedir creation and copy
-      expect(comp._component.install).to include("install -d '/var/svc/manifest/network'")
-      expect(comp._component.install).to include("cp -p 'service.xml' '/var/svc/manifest/network/service-test.xml'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/var/svc/manifest/network'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'service.xml' '/var/svc/manifest/network/service-test.xml'")
 
       # Look for defaultdir creation and copy
-      expect(comp._component.install).to include("install -d '/lib/svc/method'")
-      expect(comp._component.install).to include("cp -p 'service-default-file' '/lib/svc/method/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/lib/svc/method'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'service-default-file' '/lib/svc/method/service-test'")
 
       # Look for files and configfiles
       expect(comp._component.configfiles).to include(Vanagon::Common::Pathname.configfile('/lib/svc/method/service-test'))
@@ -665,12 +665,12 @@ end" }
       comp = Vanagon::Component::DSL.new('service-test', {}, dummy_platform_smf)
       comp.install_service('service.xml', 'service-default-file')
       # Look for servicedir creation and copy
-      expect(comp._component.install).to include("install -d '/var/svc/manifest'")
-      expect(comp._component.install).to include("cp -p 'service.xml' '/var/svc/manifest/service-test.xml'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/var/svc/manifest'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'service.xml' '/var/svc/manifest/service-test.xml'")
 
       # Look for defaultdir creation and copy
-      expect(comp._component.install).to include("install -d '/lib/svc/method'")
-      expect(comp._component.install).to include("cp -p 'service-default-file' '/lib/svc/method/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/lib/svc/method'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'service-default-file' '/lib/svc/method/service-test'")
 
       # Look for files and configfiles
       expect(comp._component.configfiles).to include(Vanagon::Common::Pathname.configfile('/lib/svc/method/service-test'))
@@ -684,13 +684,13 @@ end" }
       comp = Vanagon::Component::DSL.new('service-test', {}, dummy_platform_sysv)
       comp.install_service('component-client.init', 'component-client.sysconfig', link_target: '/tmp/service-test')
       # Look for servicedir creation and copy
-      expect(comp._component.install).to include("install -d '/etc/init.d'")
-      expect(comp._component.install).to include("cp -p 'component-client.init' '/tmp/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/etc/init.d'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.init' '/tmp/service-test'")
       expect(comp._component.install).to include("([[ '/etc/init.d/service-test' -ef '/tmp/service-test' ]] || ln -s '/tmp/service-test' '/etc/init.d/service-test')")
 
       # Look for defaultdir creation and copy
-      expect(comp._component.install).to include("install -d '/etc/default'")
-      expect(comp._component.install).to include("cp -p 'component-client.sysconfig' '/etc/default/service-test'")
+      expect(comp._component.install).to include("$$(command -v sudo) install -d '/etc/default'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'component-client.sysconfig' '/etc/default/service-test'")
 
       # Look for files and configfiles
       expect(comp._component.configfiles).to include(Vanagon::Common::Pathname.configfile('/etc/default/service-test'))
@@ -723,6 +723,15 @@ end" }
       expect(comp._component.install).to include("install -d 'place/to/put'")
       expect(comp._component.install).to include("cp -p 'thing1' 'place/to/put/thing1'")
       expect(comp._component.install).to include("chmod 0022 'place/to/put/thing1'")
+      expect(comp._component.files).to include(Vanagon::Common::Pathname.file('place/to/put/thing1', mode: '0022', owner: 'bob', group: 'timmy'))
+    end
+
+    it 'uses sudo when specified' do
+     comp = Vanagon::Component::DSL.new('install-file-test', {}, platform)
+      comp.install_file('thing1', 'place/to/put/thing1', owner: 'bob', group: 'timmy', mode: '0022', sudo: true)
+      expect(comp._component.install).to include("$$(command -v sudo) install -d 'place/to/put'")
+      expect(comp._component.install).to include("$$(command -v sudo) cp -p 'thing1' 'place/to/put/thing1'")
+      expect(comp._component.install).to include("$$(command -v sudo) chmod 0022 'place/to/put/thing1'")
       expect(comp._component.files).to include(Vanagon::Common::Pathname.file('place/to/put/thing1', mode: '0022', owner: 'bob', group: 'timmy'))
     end
   end

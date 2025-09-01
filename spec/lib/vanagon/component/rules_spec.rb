@@ -1,7 +1,7 @@
 require 'vanagon/component'
 require 'vanagon/component/dsl'
 require 'vanagon/component/rules'
-require 'vanagon/platform/osx'
+require 'vanagon/platform/macos'
 require 'vanagon/project'
 require 'vanagon/patch'
 require 'ostruct'
