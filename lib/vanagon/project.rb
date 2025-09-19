@@ -227,17 +227,18 @@ class Vanagon
     # Collects all sources and patches into the provided workdir
     #
     # @param workdir [String] directory to stage sources into
+    # @param cachedir [String] directory to cache source files and git repos
     # @param retry_count [Integer] number of times to retry each fetch
     # @param timeout [Integer] How long to wait (in seconds) for each
     #   fetch before aborting
-    def fetch_sources(workdir, retry_count = 1, timeout = 7200)
+    def fetch_sources(workdir, retry_count = 1, timeout = 7200, cachedir = nil)
       @components.each do |component|
         Vanagon::Utilities.retry_with_timeout(retry_count, timeout) do
-          component.get_source(workdir)
+          component.get_source(workdir, cachedir)
         end
         # Fetch secondary sources
         Vanagon::Utilities.retry_with_timeout(retry_count, timeout) do
-          component.get_sources(workdir)
+          component.get_sources(workdir, cachedir)
         end
         Vanagon::Utilities.retry_with_timeout(retry_count, timeout) do
           component.get_patches(workdir)

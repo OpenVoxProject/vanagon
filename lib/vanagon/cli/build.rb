@@ -22,6 +22,7 @@ class Vanagon
                                              managed automatically based on `keepwork` option
           -k, --keepwork RULE              Rule for preserving local `workdir`: [Default: never]
                                              always, on-success, on-failure, never
+          --cachedir DIRECTORY             Directory to cache source files and git repos
           -v, --verbose                    Only here for backwards compatibility. Does nothing.
 
         Engines:
@@ -64,6 +65,7 @@ class Vanagon
         translations = {
           '--verbose' => :verbose,
           '--workdir' => :workdir,
+          '--cachedir' => :cachedir,
           '--remote-workdir' => :'remote-workdir',
           '--configdir' => :configdir,
           '--engine' => :engine,

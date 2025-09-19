@@ -261,7 +261,7 @@ class Vanagon
     #   if #fetch is successful.
     def fetch_mirrors(options)
       mirrors.to_a.shuffle.each do |mirror|
-        VanagonLogger.info %(Attempting to fetch from mirror URL "#{mirror}")
+        VanagonLogger.info %(Attempting to fetch from mirror URL "#{mirror}"#{' unless already cached' if options[:cachedir]})
         @source = Vanagon::Component::Source.source(mirror, **options)
         return true if source.fetch
       rescue Vanagon::InvalidSource
@@ -290,7 +290,7 @@ class Vanagon
     # @return [Boolean] return True if the source can be retrieved,
     #   or False otherwise
     def fetch_url(options)
-      VanagonLogger.info %(Attempting to fetch from canonical URL "#{url}")
+      VanagonLogger.info %(Attempting to fetch from canonical URL "#{url}"#{' unless already cached' if options[:cachedir]})
       @source = Vanagon::Component::Source.source(url, **options)
       # Explicitly coerce the return value of #source.fetch,
       # because each subclass of Vanagon::Component::Source returns
@@ -313,8 +313,9 @@ class Vanagon
     # makefile template
     #
     # @param workdir [String] working directory to put the source into
-    def get_source(workdir)
-      opts = options.merge({ workdir: workdir, dirname: dirname })
+    # @param cachedir [String] directory to cache downloaded sources
+    def get_source(workdir, cachedir = nil)
+      opts = options.merge({ workdir: workdir, cachedir: cachedir, dirname: dirname })
       if url || !mirrors.empty?
         if %w[y yes true 1].include? ENV.fetch('VANAGON_USE_MIRRORS', 'n').downcase
           fetch_mirrors(opts) || fetch_url(opts)
@@ -358,10 +359,11 @@ class Vanagon
     # Fetches secondary sources for the component. These are just dumped into the workdir currently.
     #
     # @param workdir [String] working directory to put the source into
-    def get_sources(workdir) # rubocop:disable Metrics/AbcSize
+    # @param cachedir [String] directory to cache downloaded sources
+    def get_sources(workdir, cachedir = nil)
       sources.each do |source|
         src = Vanagon::Component::Source.source(
-          source.url, workdir: workdir, ref: source.ref, sum: source.sum
+          source.url, workdir: workdir, cachedir: cachedir, ref: source.ref, sum: source.sum
         )
         src.fetch
         src.verify
