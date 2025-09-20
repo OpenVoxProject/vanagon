@@ -91,7 +91,7 @@ class Vanagon
       # @param vanagon_root [String] Vanagon wix resources directory
       # @param destination [String] Destination directory
       # @param verbose [String] True or false
-      def merge_defaults_from_vanagon(vanagon_root, destination, verbose: false) # rubocop:disable Metrics/AbcSize
+      def merge_defaults_from_vanagon(vanagon_root, destination, verbose: false)
         # Will use this Pathname object for relative path calculations in loop below.
         vanagon_path = Pathname.new(vanagon_root)
         files = Dir.glob(File.join(vanagon_root, "**/*.*"))
@@ -157,7 +157,7 @@ class Vanagon
       # @param project [Vanagon::Project] project to build a nuget package of
       # @return [Array] list of commands required to build a nuget package for
       #   the given project from a tarball
-      def generate_nuget_package(project) # rubocop:disable Metrics/AbcSize
+      def generate_nuget_package(project)
         target_dir = project.repo ? output_dir(project.repo) : output_dir
         ["mkdir -p output/#{target_dir}",
         "mkdir -p $(tempdir)/#{project.name}/tools",
@@ -180,7 +180,7 @@ class Vanagon
       #
       # @param project [Vanagon::Project] project to build a msi package of
       # @return [Array] list of commands required to build an msi package for the given project from a tarball
-      def generate_msi_package(project) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+      def generate_msi_package(project)
         target_dir = project.repo ? output_dir(project.repo) : output_dir
         wix_extensions = "-ext WiXUtilExtension -ext WixUIExtension"
         # Heat command documentation at: http://wixtoolset.org/documentation/manual/v3/overview/heat.html

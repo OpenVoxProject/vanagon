@@ -14,7 +14,7 @@ class Vanagon
       #
       # @param project [Vanagon::Project] project to build a MacOS package of
       # @return [Array] list of commands required to build a MacOS package for the given project from a tarball
-      def generate_package(project) # rubocop:disable Metrics/AbcSize,Metrics/PerceivedComplexity
+      def generate_package(project)
         target_dir = project.repo ? output_dir(project.repo) : output_dir
 
         # Here we maintain backward compatibility with older vanagon versions
@@ -163,7 +163,7 @@ class Vanagon
       # @param name [String] name of the project
       # @param binding [Binding] binding to use in evaluating the packaging templates
       # @param project [Vanagon::Project] Vanagon::Project we are building for
-      def generate_packaging_artifacts(workdir, name, binding, project) # rubocop:disable Metrics/AbcSize
+      def generate_packaging_artifacts(workdir, name, binding, project)
         resources_dir = File.join(workdir, "resources", "macos")
         FileUtils.mkdir_p(resources_dir)
         script_dir = File.join(workdir, "scripts")

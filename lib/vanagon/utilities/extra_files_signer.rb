@@ -47,7 +47,7 @@ class Vanagon
           []
         end
 
-        def commands(project, mktemp, source_dir) # rubocop:disable Metrics/AbcSize
+        def commands(project, mktemp, source_dir)
           tempdir = nil
           commands = []
           # Skip signing extra files if logging into the signing_host fails

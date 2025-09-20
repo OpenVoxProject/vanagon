@@ -32,7 +32,7 @@ class Vanagon
         exit 1
       end
 
-      def run(options) # rubocop:disable Metrics/AbcSize
+      def run(options)
         platform = options[:platform]
         project = options[:project_name]
         driver = Vanagon::Driver.new(platform, project)

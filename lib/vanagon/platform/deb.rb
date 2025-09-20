@@ -5,7 +5,7 @@ class Vanagon
       #
       # @param project [Vanagon::Project] project to build a debian package of
       # @return [Array] list of commands required to build a debian package for the given project from a tarball
-      def generate_package(project) # rubocop:disable Metrics/AbcSize
+      def generate_package(project)
         target_dir = project.repo ? output_dir(project.repo) : output_dir
         copy_extensions = if project.source_artifacts
                             '*.{deb,buildinfo,tar.gz,changes,dsc}'
@@ -32,7 +32,7 @@ class Vanagon
       # @param name [String] name of the project
       # @param binding [Binding] binding to use in evaluating the packaging templates
       # @param project [Vanagon::Project] Vanagon::Project we are building for
-      def generate_packaging_artifacts(workdir, name, binding, project) # rubocop:disable Metrics/AbcSize
+      def generate_packaging_artifacts(workdir, name, binding, project)
         deb_dir = File.join(workdir, "debian")
         FileUtils.mkdir_p(deb_dir)
 

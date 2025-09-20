@@ -187,7 +187,7 @@ class Vanagon
       #     token: '456def789'
       #
       # @return [String, nil] the vmfloaty vmpooler token value
-      def read_vmfloaty_token(path = "~/.vmfloaty.yml") # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+      def read_vmfloaty_token(path = "~/.vmfloaty.yml")
         absolute_path = File.expand_path(path)
         return nil unless File.exist?(absolute_path)
 
@@ -235,7 +235,7 @@ class Vanagon
       end
 
       # Attempt to provision a host from a specific pooler.
-      def select_target_from(pooler) # rubocop:disable Metrics/AbcSize
+      def select_target_from(pooler)
         request_object = build_request_object
 
         VanagonLogger.info "Requesting VMs with job_id: #{@saved_job_id}.  Will poll for up to an hour."

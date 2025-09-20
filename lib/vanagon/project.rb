@@ -146,7 +146,7 @@ class Vanagon
     # @param name [String] name of the project
     # @param platform [Vanagon::Platform] platform for the project to be built for
     # @return [Vanagon::Project] the project with the given name and platform
-    def initialize(name, platform) # rubocop:disable Metrics/AbcSize
+    def initialize(name, platform)
       @name = name
       @components = []
       @requires = []
@@ -227,17 +227,18 @@ class Vanagon
     # Collects all sources and patches into the provided workdir
     #
     # @param workdir [String] directory to stage sources into
+    # @param cachedir [String] directory to cache source files and git repos
     # @param retry_count [Integer] number of times to retry each fetch
     # @param timeout [Integer] How long to wait (in seconds) for each
     #   fetch before aborting
-    def fetch_sources(workdir, retry_count = 1, timeout = 7200)
+    def fetch_sources(workdir, retry_count = 1, timeout = 7200, cachedir = nil)
       @components.each do |component|
         Vanagon::Utilities.retry_with_timeout(retry_count, timeout) do
-          component.get_source(workdir)
+          component.get_source(workdir, cachedir)
         end
         # Fetch secondary sources
         Vanagon::Utilities.retry_with_timeout(retry_count, timeout) do
-          component.get_sources(workdir)
+          component.get_sources(workdir, cachedir)
         end
         Vanagon::Utilities.retry_with_timeout(retry_count, timeout) do
           component.get_patches(workdir)
@@ -562,7 +563,7 @@ class Vanagon
     # Gets the highest level directories declared by the project
     #
     # @return [Array] the highest level directories that have been declared by the project
-    def get_root_directories # rubocop:disable Metrics/AbcSize
+    def get_root_directories
       dirs = get_directories.map { |dir| dir.path.split('/') }
       dirs.sort! { |dir1, dir2| dir1.length <=> dir2.length }
       ret_dirs = []
@@ -751,7 +752,7 @@ class Vanagon
     # @param platform [String] platform we're writing metadata for
     # @param additional_directories [String|Array[String]] additional
     #        directories to write build_metadata.<project>.<platform>.json to
-    def save_manifest_json(platform, additional_directories = nil) # rubocop:disable Metrics/AbcSize
+    def save_manifest_json(platform, additional_directories = nil)
       manifest = build_manifest_json
       metadata = metadata_merge(manifest, @upstream_metadata)
 
@@ -821,7 +822,7 @@ class Vanagon
     # @param upstream_project_name [String] The name of the vanagon project to load
     # @param upstream_git_url [URI] The URL to clone this vanagon project from
     # @param upstream_git_branch [String] The branch of the vanagon project to clone from
-    def load_upstream_settings(upstream_project_name, upstream_git_url, upstream_git_branch) # rubocop:disable Metrics/AbcSize
+    def load_upstream_settings(upstream_project_name, upstream_git_url, upstream_git_branch)
       Dir.mktmpdir do |working_directory|
         upstream_source = Vanagon::Component::Source::Git.new(upstream_git_url, workdir: working_directory, ref: upstream_git_branch)
         upstream_source.fetch

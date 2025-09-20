@@ -176,7 +176,7 @@ class Vanagon
       #        service_type [String] type of the service (network, application, system, etc)
       #        init_system [String] the init system on which to install service (sysv, systemd)
       #        link_target [String] executable service file should be linked to
-      def install_service(service_file, default_file = nil, service_name = @component.name, **options) # rubocop:disable Metrics/AbcSize
+      def install_service(service_file, default_file = nil, service_name = @component.name, **options)
         init_system = options[:init_system] || @component.platform.servicetype
         servicedir = @component.platform.get_service_dir(init_system)
 
@@ -246,7 +246,7 @@ class Vanagon
       # @param owner  [String] owner of the file
       # @param group  [String] group owner of the file
       # # @param sudo   [Boolean] whether to use sudo to create the file and set mode
-      def install_file(source, target, mode: nil, owner: nil, group: nil, sudo: false) # rubocop:disable Metrics/AbcSize
+      def install_file(source, target, mode: nil, owner: nil, group: nil, sudo: false)
         sudo_check = sudo ? "#{sudo_bin} " : ""
 
         @component.install << "#{sudo_check}#{@component.platform.install} -d '#{File.dirname(target)}'"
@@ -421,7 +421,7 @@ class Vanagon
       # @param mode [String] octal mode to apply to the directory
       # @param owner [String] owner of the directory
       # @param group [String] group of the directory
-      def directory(dir, mode: nil, owner: nil, group: nil) # rubocop:disable Metrics/AbcSize
+      def directory(dir, mode: nil, owner: nil, group: nil)
         install_flags = ['-d']
         if @component.platform.is_windows?
           unless mode.nil? && owner.nil? && group.nil?

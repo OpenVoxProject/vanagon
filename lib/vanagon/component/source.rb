@@ -17,8 +17,9 @@ class Vanagon
         # @param uri_instance [#to_s] URI of the source file (includes git@... style links)
         # @param options [Hash] hash of the options needed for the subtype
         # @param workdir [String] working directory to fetch the source into
+        # @param cacheedir [String] directory to cache source files and git repos
         # @return [Vanagon::Component::Source] the correct subtype for the given source
-        def source(uri_instance, **options) # rubocop:disable Metrics/AbcSize
+        def source(uri_instance, **options)
           # Sometimes the uri comes in as a string, but sometimes it's already been
           # coerced into a URI object. The individual source providers will turn
           # the passed uri into a URI object if needed, but for this method we
@@ -39,6 +40,7 @@ class Vanagon
               sum: options[:sum],
               ref: options[:ref],
               workdir: options[:workdir],
+              cachedir: options[:cachedir],
               dirname: options[:dirname],
               clone_options: options[:clone_options]
           end
@@ -47,6 +49,7 @@ class Vanagon
             return Vanagon::Component::Source::Http.new uri,
               sum: options[:sum],
               workdir: options[:workdir],
+              cachedir: options[:cachedir],
               # Default sum_type is md5 if unspecified:
               sum_type: options[:sum_type] || "md5"
           end
