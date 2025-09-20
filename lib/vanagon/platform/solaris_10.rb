@@ -5,7 +5,7 @@ class Vanagon
       #
       # @param project [Vanagon::Project] project to build a solaris package of
       # @return [Array] list of commands required to build a solaris package for the given project from a tarball
-      def generate_package(project) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+      def generate_package(project)
         target_dir = project.repo ? output_dir(project.repo) : output_dir
         name_and_version = "#{project.name}-#{project.version}"
         pkg_name = package_name(project)
@@ -146,7 +146,7 @@ class Vanagon
       #
       # @param build_dependencies [Array] list of all build dependencies to install
       # @return [String] a command to install all of the build dependencies
-      def install_build_dependencies(build_dependencies) # rubocop:disable Metrics/AbcSize
+      def install_build_dependencies(build_dependencies)
         http = []
         pkgutil = []
         noasks = ["instance=overwrite", "partial=nocheck", "runlevel=nocheck", "idepend=nocheck", "rdepend=nocheck", "space=nocheck", "setuid=nocheck", "conflict=nocheck", "action=nocheck", "basedir=default"]

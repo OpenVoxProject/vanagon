@@ -118,7 +118,7 @@ class Vanagon
         # Downloads the file from @url into the @workdir
         # @param target_url [String, URI, Addressable::URI] url of an http source to retrieve with GET
         # @raise [RuntimeError, Vanagon::Error] an exception is raised if the URI scheme cannot be handled
-        def download(target_url, target_file = nil, headers = { "Accept-Encoding" => "identity" }) # rubocop:disable Metrics/AbcSize
+        def download(target_url, target_file = nil, headers = { "Accept-Encoding" => "identity" })
           uri = URI.parse(target_url.to_s)
           target_file ||= File.basename(uri.path)
 

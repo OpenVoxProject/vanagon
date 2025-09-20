@@ -40,7 +40,7 @@ class Vanagon
         exit 1
       end
 
-      def run(options) # rubocop:disable Metrics/AbcSize
+      def run(options)
         project = options[:project_name]
         platform_list = options[:platforms].split(',')
         target_list = []

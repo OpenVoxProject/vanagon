@@ -31,7 +31,7 @@ class Vanagon
     #   @return [String] What step should this patch be applied to, one of ["unpack", "install"]
     attr_reader :after
 
-    def initialize(origin_path, component, options) # rubocop:disable Metrics/AbcSize,Metrics/PerceivedComplexity
+    def initialize(origin_path, component, options)
       valid_keys = %i[namespace destination strip fuzz after]
       bad_keys = options.each_key.reject { |k| valid_keys.include? k }
 

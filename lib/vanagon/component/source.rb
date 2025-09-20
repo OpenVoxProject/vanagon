@@ -18,7 +18,7 @@ class Vanagon
         # @param options [Hash] hash of the options needed for the subtype
         # @param workdir [String] working directory to fetch the source into
         # @return [Vanagon::Component::Source] the correct subtype for the given source
-        def source(uri_instance, **options) # rubocop:disable Metrics/AbcSize
+        def source(uri_instance, **options)
           # Sometimes the uri comes in as a string, but sometimes it's already been
           # coerced into a URI object. The individual source providers will turn
           # the passed uri into a URI object if needed, but for this method we

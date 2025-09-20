@@ -50,7 +50,7 @@ class Vanagon
     # @return [Net::HTTPAccepted] The response object
     # @raise [RuntimeError, Vanagon::Error] an exception is raised if the
     # action is not supported, or if there is a problem with the http request
-    def http_request_generic(url, type, payload = {}.to_json, header = nil) # rubocop:disable Metrics/AbcSize
+    def http_request_generic(url, type, payload = {}.to_json, header = nil)
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == 'https'

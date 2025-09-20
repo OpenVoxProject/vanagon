@@ -156,7 +156,7 @@ class Vanagon
     # @param settings [Hash] the settings to be used in the component
     # @param platform [Vanagon::Platform] the platform to build the component for
     # @return [Vanagon::Component] the component with the given settings and platform
-    def initialize(name, settings, platform) # rubocop:disable Metrics/AbcSize
+    def initialize(name, settings, platform)
       @name = name
       @settings = settings
       @platform = platform
@@ -313,7 +313,7 @@ class Vanagon
     # makefile template
     #
     # @param workdir [String] working directory to put the source into
-    def get_source(workdir) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    def get_source(workdir)
       opts = options.merge({ workdir: workdir, dirname: dirname })
       if url || !mirrors.empty?
         if %w[y yes true 1].include? ENV.fetch('VANAGON_USE_MIRRORS', 'n').downcase
