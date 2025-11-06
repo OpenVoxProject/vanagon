@@ -336,9 +336,6 @@ Metrics/ModuleLength:
 Metrics/ParameterLists:
   Enabled: false
 
-Metrics/PerceivedComplexity:
-  Enabled: true
-
 Naming/AccessorMethodName:
   Enabled: false
 
@@ -814,4 +811,10 @@ Style/FormatStringToken:
   Enabled: false
 
 Style/MultilineTernaryOperator:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
   Enabled: false

@@ -47,7 +47,7 @@ class Vanagon
       # in the returned rules.
       #
       # @return [Array<Makefile::Rule>]
-      def rules # rubocop:disable Metrics/AbcSize
+      def rules
         list_of_rules = [
           component_rule,
           unpack_rule,

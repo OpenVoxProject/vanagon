@@ -12,7 +12,7 @@ class Vanagon
   class Driver
     include Vanagon::Utilities
 
-    attr_accessor :platform, :project, :target, :workdir, :remote_workdir, :verbose, :preserve, :keepwork
+    attr_accessor :platform, :project, :target, :workdir, :cachedir, :remote_workdir, :verbose, :preserve, :keepwork
 
     def timeout
       @timeout ||= @project.timeout || ENV["VANAGON_TIMEOUT"] || 7200
@@ -22,11 +22,12 @@ class Vanagon
       @retry_count ||= @project.retry_count || ENV["VANAGON_RETRY_COUNT"] || 1
     end
 
-    def initialize(platform, project, options = {}) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    def initialize(platform, project, options = {})
       @options = options
       @verbose = options[:verbose] || false
       @preserve = options[:preserve] || :'on-failure'
       @workdir = options[:workdir] || Dir.mktmpdir
+      @cachedir = options[:cachedir]
       @keepwork = options[:keepwork] || :never
 
       @@configdir = options[:configdir] || File.join(Dir.pwd, "configs")
@@ -114,7 +115,7 @@ class Vanagon
       @project.components.map(&:build_requires).flatten.uniq - @project.components.map(&:name)
     end
 
-    def install_build_dependencies # rubocop:disable Metrics/AbcSize
+    def install_build_dependencies
       unless list_build_dependencies.empty?
         if @platform.build_dependencies && @platform.build_dependencies.command && !@platform.build_dependencies.command.empty?
           @engine.dispatch("#{@platform.build_dependencies.command} #{list_build_dependencies.join(' ')} #{@platform.build_dependencies.suffix}")
@@ -126,7 +127,7 @@ class Vanagon
       end
     end
 
-    def run # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    def run
       # Simple sanity check for the project
       if @project.version.nil? or @project.version.empty?
         raise Vanagon::Error, "Project requires a version set, all is lost."
@@ -144,7 +145,7 @@ class Vanagon
       Vanagon::Utilities.retry_with_timeout(retry_count, timeout) do
         install_build_dependencies
       end
-      @project.fetch_sources(workdir, retry_count, timeout)
+      @project.fetch_sources(workdir, retry_count, timeout, cachedir)
 
       @project.make_makefile(workdir)
       @project.make_bill_of_materials(workdir)

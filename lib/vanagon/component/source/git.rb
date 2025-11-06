@@ -13,7 +13,7 @@ class Vanagon
   class Component
     class Source
       class Git
-        attr_accessor :url, :log_url, :ref, :workdir, :clone_options
+        attr_accessor :url, :log_url, :ref, :workdir, :cachedir, :clone_options
         attr_reader :version, :default_options, :repo
 
         class << self
@@ -94,7 +94,8 @@ class Vanagon
         # @param url [String] url of git repo to use as source
         # @param ref [String] ref to checkout from git repo
         # @param workdir [String] working directory to clone into
-        def initialize(url, workdir:, **options) # rubocop:disable Metrics/AbcSize
+        # @param cachedir [String] directory to cache cloned repos
+        def initialize(url, workdir:, cachedir: nil, **options)
           opts = default_options.merge(options.reject { |k, v| v.nil? })
 
           # Ensure that #url returns a URI object
@@ -103,6 +104,7 @@ class Vanagon
           @ref = opts[:ref]
           @dirname = opts[:dirname]
           @workdir = File.realpath(workdir)
+          @cachedir = cachedir ? File.realpath(cachedir) : nil
           @clone_options = opts[:clone_options] ||= {}
 
           # We can test for Repo existence without cloning
@@ -114,6 +116,11 @@ class Vanagon
         # a side effect.
         def fetch
           begin
+            if @cachedir && File.directory?("#{@cachedir}/#{dirname}")
+              VanagonLogger.info "Using cached copy of Git repo '#{dirname}' in #{cachedir}"
+              FileUtils.cp_r("#{@cachedir}/#{dirname}", workdir)
+              @wascached = true
+            end
             @clone ||= ::Git.open(File.join(workdir, dirname))
             @clone.fetch
           rescue ::Git::Error, ArgumentError
@@ -156,6 +163,11 @@ class Vanagon
           else
             @clone ||= ::Git.clone(url, dirname, path: workdir, **clone_options)
           end
+          if @cachedir && !@wascached
+            FileUtils.cp_r(File.join(workdir, dirname), cachedir)
+            @wascached = true
+          end
+          @clone
         end
 
         # Attempt to connect to whatever URL is provided and
@@ -183,8 +195,10 @@ class Vanagon
         # Clone a remote repo, make noise about it, and fail entirely
         # if we're unable to retrieve the remote repo
         def clone!
-          VanagonLogger.info "Cloning Git repo '#{log_url}'"
-          VanagonLogger.info "Successfully cloned '#{dirname}'" if clone
+          unless @wascached
+            VanagonLogger.info "Cloning Git repo '#{log_url}'"
+            VanagonLogger.info "Successfully cloned '#{dirname}'" if clone
+          end
         rescue ::Git::Error
           raise Vanagon::InvalidRepo, "Unable to clone from '#{log_url}'"
         end

@@ -12,7 +12,7 @@ class Vanagon
         include Vanagon::Utilities
 
         # Accessors :url, :file, :extension, :workdir, :cleanup are inherited from Local
-        attr_accessor :sum, :sum_type
+        attr_accessor :sum, :sum_type, :cachedir
 
         # Allowed checksum algorithms to use when validating files
         CHECKSUM_TYPES = %w[md5 sha1 sha256 sha512].freeze
@@ -48,8 +48,9 @@ class Vanagon
         #                     sum from
         # @param workdir [String] working directory to download into
         # @param sum_type [String] type of sum we are verifying
+        # @param cachedir [String] directory to cache downloaded sources
         # @raise [RuntimeError] an exception is raised is sum is nil
-        def initialize(url, sum:, workdir:, sum_type:, **options)
+        def initialize(url, sum:, workdir:, sum_type:, cachedir: nil, **options)
           unless sum
             fail "sum is required to validate the http source"
           end
@@ -63,6 +64,7 @@ class Vanagon
           @url = url
           @sum = sum
           @workdir = workdir
+          @cachedir = cachedir ? File.realpath(cachedir) : nil
           @sum_type = sum_type
 
           if Vanagon::Component::Source::Http.valid_url?(@sum)
@@ -81,9 +83,14 @@ class Vanagon
         end
 
         # Download the source from the url specified. Sets the full path to the
-        # file as @file and the @extension for the file as a side effect.
+        # file as @file and the @extension for the file as a side effect. Use
+        # the cached copy if it exists and is valid.
         def fetch
           @file = File.basename(URI.parse(@url).path)
+          if @cachedir && File.exist?(File.join(@cachedir, @file))
+            VanagonLogger.info "Using cached copy of #{@file} in #{@cachedir}"
+            FileUtils.cp(File.join(@cachedir, @file), workdir)
+          end
           if File.exist?(File.join(workdir, file))
             begin
               return if verify
@@ -118,7 +125,7 @@ class Vanagon
         # Downloads the file from @url into the @workdir
         # @param target_url [String, URI, Addressable::URI] url of an http source to retrieve with GET
         # @raise [RuntimeError, Vanagon::Error] an exception is raised if the URI scheme cannot be handled
-        def download(target_url, target_file = nil, headers = { "Accept-Encoding" => "identity" }) # rubocop:disable Metrics/AbcSize
+        def download(target_url, target_file = nil, headers = { "Accept-Encoding" => "identity" })
           uri = URI.parse(target_url.to_s)
           target_file ||= File.basename(uri.path)
 
@@ -138,8 +145,12 @@ class Vanagon
                 location = URI.parse(response.header['location'])
                 download(uri + location, target_file)
               when Net::HTTPSuccess
-                File.open(File.join(@workdir, target_file), 'w') do |io|
+                dir = @cachedir || @workdir
+                File.open(File.join(dir, target_file), 'w') do |io|
                   response.read_body { |chunk| io.write(chunk) }
+                end
+                if @cachedir
+                  FileUtils.cp(File.join(@cachedir, target_file), File.join(@workdir, target_file))
                 end
               else
                 fail "Error: #{response.code.to_s}. Unable to get source from #{target_url}"

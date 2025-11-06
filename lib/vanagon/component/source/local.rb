@@ -77,7 +77,7 @@ class Vanagon
         # @param tar [String] the tar command to use
         # @return [String, nil] command to extract the source
         # @raise [RuntimeError] an exception is raised if there is no known extraction method for @extension
-        def extract(tar = "tar") # rubocop:disable Metrics/AbcSize
+        def extract(tar = "tar")
           # Extension does not appear to be an archive, so "extract" is a no-op
           return ': nothing to extract' unless archive_extensions.include?(extension)
 

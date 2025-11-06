@@ -29,7 +29,7 @@ class Vanagon
         return list
       end
 
-      def run(options) # rubocop:disable Metrics/AbcSize
+      def run(options)
         check_directories(options)
 
         default_list = topic_list(File.dirname(__FILE__), '..', 'platform', 'defaults')
