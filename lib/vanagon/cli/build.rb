@@ -20,7 +20,7 @@ class Vanagon
           -s, --skipcheck                  Skip the "check" stage when building components
           -w, --workdir DIRECTORY          Working directory on the local host,
                                              managed automatically based on `keepwork` option
-          -k, --keepwork RULE              Rule for preserving local `workdir`: [Default: never]
+          -k, --keepwork RULE              Rule for preserving local `workdir`: [Default: on-failure]
                                              always, on-success, on-failure, never
           -v, --verbose                    Only here for backwards compatibility. Does nothing.
 

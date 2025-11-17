@@ -43,9 +43,9 @@ describe Vanagon::CLI do
       subject = described_class.new
       expect(subject.parse(%W[build hello project platform])).to include(:preserve => :'on-failure')
     end
-    it "keepwork defaults to :never" do
+    it "keepwork defaults to :on-failure" do
       subject = described_class.new
-      expect(subject.parse(%W[build hello project platform])).to include(:keepwork => :never)
+      expect(subject.parse(%W[build hello project platform])).to include(:keepwork => :'on-failure')
     end
   end
 
