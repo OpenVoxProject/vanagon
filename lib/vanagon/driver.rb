@@ -27,7 +27,7 @@ class Vanagon
       @verbose = options[:verbose] || false
       @preserve = options[:preserve] || :'on-failure'
       @workdir = options[:workdir] || Dir.mktmpdir
-      @keepwork = options[:keepwork] || :never
+      @keepwork = options[:keepwork] || :'on-failure'
 
       @@configdir = options[:configdir] || File.join(Dir.pwd, "configs")
       components = options[:components] || []
