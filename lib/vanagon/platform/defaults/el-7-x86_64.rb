@@ -12,6 +12,7 @@ platform "el-7-x86_64" do |plat|
     createrepo
     curl
     gcc
+    gcc-c++
     make
     oracle-softwarecollection-release-el7
     rpmdevtools
