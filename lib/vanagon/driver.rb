@@ -117,7 +117,9 @@ class Vanagon
     def install_build_dependencies # rubocop:disable Metrics/AbcSize
       unless list_build_dependencies.empty?
         if @platform.build_dependencies && @platform.build_dependencies.command && !@platform.build_dependencies.command.empty?
-          @engine.dispatch("#{@platform.build_dependencies.command} #{list_build_dependencies.join(' ')} #{@platform.build_dependencies.suffix}")
+          # When install dependencies via Cygwin on Windows, we need to comma-separate the list rather than space
+          joinchar = @platform.is_windows? && @platform.build_dependencies.command =~ /setup.*exe/ ? ',' : ' '
+          @engine.dispatch("#{@platform.build_dependencies.command} #{list_build_dependencies.join(joinchar)} #{@platform.build_dependencies.suffix}")
         elsif @platform.respond_to?(:install_build_dependencies)
           @engine.dispatch(@platform.install_build_dependencies(list_build_dependencies))
         else
