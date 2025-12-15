@@ -114,7 +114,7 @@ class Vanagon
       @project.components.map(&:build_requires).flatten.uniq - @project.components.map(&:name)
     end
 
-    def install_build_dependencies # rubocop:disable Metrics/AbcSize
+    def install_build_dependencies # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
       unless list_build_dependencies.empty?
         if @platform.build_dependencies && @platform.build_dependencies.command && !@platform.build_dependencies.command.empty?
           # When install dependencies via Cygwin on Windows, we need to comma-separate the list rather than space
