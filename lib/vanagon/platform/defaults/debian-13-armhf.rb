@@ -4,29 +4,21 @@ platform "debian-13-armhf" do |plat|
   plat.servicetype "systemd"
   plat.codename "trixie"
 
-  packages = [
-    "build-essential",
-    "make",
-    "quilt",
-    "pkg-config",
-    "debhelper",
-    "rsync",
-    "fakeroot",
-    "libbz2-dev",
-    "libreadline-dev",
-    "libselinux1-dev",
-    "make",
-    "pkg-config",
-    "cmake",
-    "gcc",
-    "swig",
-    "systemtap-sdt-dev",
-    "zlib1g-dev"
-  ]
-
+  packages = %w(
+    build-essential
+    cmake
+    curl
+    debhelper
+    devscripts
+    fakeroot
+    make
+    pkg-config
+    quilt
+    rsync
+    systemd
+  )
   plat.provision_with "export DEBIAN_FRONTEND=noninteractive && apt-get update -qq && apt-get install -qy --no-install-recommends #{packages.join(' ')}"
   plat.install_build_dependencies_with "DEBIAN_FRONTEND=noninteractive; apt-get install -qy --no-install-recommends "
   plat.docker_image "debian:13"
-  plat.docker_registry "docker.io"
   plat.docker_arch "linux/arm/v7"
 end
