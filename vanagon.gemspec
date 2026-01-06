@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.authors  = ['Puppet By Perforce', 'OpenVoxProject']
   gem.email    = 'voxpupuli@groups.io'
   gem.homepage = 'http://github.com/OpenVoxProject/vanagon'
-  gem.required_ruby_version = ['>= 3.2', '< 4']
+  gem.required_ruby_version = ['>= 3.2', '< 5']
 
   gem.add_dependency('docopt', '~> 0.6.1')
   # Handle git repos responsibly
@@ -30,6 +30,8 @@ Gem::Specification.new do |gem|
   # - ASL v2 licensed: https://rubygems.org/gems/packaging
   gem.add_dependency('packaging', '~> 0.122.3')
   gem.add_dependency('psych', '>= 4.0', '< 6')
+
+  gem.add_dependency('ostruct', '< 0.7')
 
   gem.require_path = 'lib'
   gem.bindir       = 'bin'
