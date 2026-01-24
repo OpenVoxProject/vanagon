@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/openvoxproject/vanagon/tree/1.1.0) (2026-01-24)
+
+[Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.0.0...1.1.0)
+
+**Implemented enhancements:**
+
+- feat: add ubuntu armhf targets [\#69](https://github.com/OpenVoxProject/vanagon/pull/69) ([Gitii](https://github.com/Gitii))
+- Add Ruby 4.0 support [\#68](https://github.com/OpenVoxProject/vanagon/pull/68) ([dependabot[bot]](https://github.com/apps/dependabot))
+- feat: add default platform config for debian13 armhf [\#67](https://github.com/OpenVoxProject/vanagon/pull/67) ([Gitii](https://github.com/Gitii))
+- Add SLES16 [\#66](https://github.com/OpenVoxProject/vanagon/pull/66) ([sbernhard](https://github.com/sbernhard))
+- Default --keepwork to on-failure [\#61](https://github.com/OpenVoxProject/vanagon/pull/61) ([nmburgan](https://github.com/nmburgan))
+- Changes to build for MacOS as non-root in GitHub Actions [\#56](https://github.com/OpenVoxProject/vanagon/pull/56) ([nmburgan](https://github.com/nmburgan))
+
+**Fixed bugs:**
+
+- Create archive tar with appropriate flags rather than chown [\#57](https://github.com/OpenVoxProject/vanagon/pull/57) ([nmburgan](https://github.com/nmburgan))
+
+**Merged pull requests:**
+
+- rubocop: autofix [\#65](https://github.com/OpenVoxProject/vanagon/pull/65) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [1.0.0](https://github.com/openvoxproject/vanagon/tree/1.0.0) (2025-08-29)
 
 [Full Changelog](https://github.com/openvoxproject/vanagon/compare/0.54.0...1.0.0)
