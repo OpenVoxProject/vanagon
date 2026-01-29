@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/openvoxproject/vanagon/tree/1.2.0) (2026-01-29)
+
+[Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.1.0...1.2.0)
+
+**Implemented enhancements:**
+
+- Add SLES 16 ARM64 support [\#71](https://github.com/OpenVoxProject/vanagon/pull/71) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [1.1.0](https://github.com/openvoxproject/vanagon/tree/1.1.0) (2026-01-24)
 
 [Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.0.0...1.1.0)
