@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/openvoxproject/vanagon/tree/1.3.0) (2026-02-07)
+
+[Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.2.0...1.3.0)
+
+**Implemented enhancements:**
+
+- Add Ubuntu 26.04 [\#73](https://github.com/OpenVoxProject/vanagon/pull/73) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [1.2.0](https://github.com/openvoxproject/vanagon/tree/1.2.0) (2026-01-29)
 
 [Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.1.0...1.2.0)
