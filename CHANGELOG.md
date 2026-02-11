@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1](https://github.com/openvoxproject/vanagon/tree/1.3.1) (2026-02-11)
+
+[Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.3.0...1.3.1)
+
+**Fixed bugs:**
+
+- build on SLES-15.5 instead of SLES-15.6 for backwards compability [\#74](https://github.com/OpenVoxProject/vanagon/pull/74) ([nmburgan](https://github.com/nmburgan))
+
 ## [1.3.0](https://github.com/openvoxproject/vanagon/tree/1.3.0) (2026-02-07)
 
 [Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.2.0...1.3.0)
