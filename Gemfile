@@ -21,7 +21,6 @@ end
 # "lock_manager" is specified in development dependencies, to allow
 # the use of unreleased versions of "lock_manager" during development.
 group(:development, :test) do
-  gem 'debug', '>= 1.0.0'
   gem 'fakefs'
   gem 'json'
   gem 'lock_manager', *location_for(ENV['LOCK_MANAGER_LOCATION'] || '>= 0')
