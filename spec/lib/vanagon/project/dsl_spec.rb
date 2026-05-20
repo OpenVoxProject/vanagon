@@ -56,7 +56,6 @@ end" }
 
   describe '#release_from_git' do
     it 'sets the release based on commits since last tag' do
-      repo = double
       tag = double
       log = double
       diff = double
