@@ -194,7 +194,16 @@ class Vanagon
       #
       def version_from_git
         git_version = Git.open(File.expand_path("..", @configdir)).describe('HEAD', tags: true, abbrev: 9)
-        version(git_version.split('-').reject(&:empty?).join('.'))
+        case git_version
+        # Matches semver.org spec for a pre-release, with a well-known alpha,
+        # beta, or RC identifier. Substitute "-" for "~" so that dpkg and
+        # rpm treat this as a pre-release and will upgrade packages to the
+        # final version.
+        when /\A\d+\.\d+\.\d+-(?:alpha|beta|rc)\d+/
+          version(git_version.sub('-', '~'))
+        else
+          version(git_version.split('-').reject(&:empty?).join('.'))
+        end
       rescue Git::Error
         VanagonLogger.error "Directory '#{File.expand_path('..', @configdir)}' cannot be versioned by git. Maybe it hasn't been tagged yet?"
       end
