@@ -13,44 +13,58 @@ end" }
   end
 
   describe '#version_from_git' do
-    it 'sets the version based on the git describe' do
-      proj = Vanagon::Project::DSL.new('test-fixture', configdir, platform)
-      proj.instance_eval(project_block)
+    let(:project) { Vanagon::Project::DSL.new('test-fixture', configdir, platform) }
+    let(:repo) { double('repo') }
+    subject { project._project }
 
-      # Lying is bad. You shouldn't lie. But sometimes when you're
-      # working with gross abstractions piled into the shape of
-      # an indescribable cyclopean obelisk, you might have to lie
-      # a little bit. Instead of trying to mock an entire Git instance,
-      # we'll just instantiate a Double and allow it to receive calls
-      # to .describe like it was a valid Git instance.
-      repo = double("repo")
+    before(:each) do
+      project.instance_eval(project_block)
+
       expect(::Git)
         .to receive(:open)
         .and_return(repo)
+    end
 
+    it 'sets the version based on the git describe' do
       allow(repo)
         .to receive(:describe)
         .and_return('1.2.3-1234')
 
-      proj.version_from_git
-      expect(proj._project.version).to eq('1.2.3.1234')
+      project.version_from_git
+
+      expect(subject.version).to eq('1.2.3.1234')
     end
+
     it 'sets the version based on the git describe with multiple dashes' do
-      proj = Vanagon::Project::DSL.new('test-fixture', configdir, platform)
-      proj.instance_eval(project_block)
-
-      # See previous description of "indescribable cyclopean obelisk"
-      repo = double("repo")
-      expect(::Git)
-        .to receive(:open)
-        .and_return(repo)
-
       expect(repo)
         .to receive(:describe)
         .and_return('1.2.3---1234')
 
-      proj.version_from_git
-      expect(proj._project.version).to eq('1.2.3.1234')
+      project.version_from_git
+
+      expect(subject.version).to eq('1.2.3.1234')
+    end
+
+    %w[alpha1 beta2 rc0].each do |pre_release|
+      it "munges tagged #{pre_release} pre-release versions to include a tilde" do
+        expect(repo)
+          .to receive(:describe)
+          .and_return("1.2.3-#{pre_release}")
+
+        project.version_from_git
+
+        expect(subject.version).to eq("1.2.3~#{pre_release}")
+      end
+    end
+
+    it "does not munge a tilde into un-tagged pre-release versions" do
+      expect(repo)
+        .to receive(:describe)
+        .and_return("1.2.3-beta10-42-gabcdef123")
+
+      project.version_from_git
+
+      expect(subject.version).to eq("1.2.3.beta10.42.gabcdef123")
     end
   end
 
