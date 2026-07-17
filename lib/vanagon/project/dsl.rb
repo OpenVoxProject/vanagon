@@ -199,7 +199,7 @@ class Vanagon
         # beta, or RC identifier. Substitute "-" for "~" so that dpkg and
         # rpm treat this as a pre-release and will upgrade packages to the
         # final version.
-        when /\A\d+\.\d+\.\d+-(?:alpha|beta|rc)\d+/
+        when /\A\d+\.\d+\.\d+-(?:alpha|beta|rc)\d+\z/
           version(git_version.sub('-', '~'))
         else
           version(git_version.split('-').reject(&:empty?).join('.'))
