@@ -12,7 +12,6 @@ platform 'el-9-ppc64le' do |plat|
     dnf-utils
     gcc
     gcc-c++
-    java-1.8.0-openjdk-devel
     libarchive
     libtool
     libselinux-devel

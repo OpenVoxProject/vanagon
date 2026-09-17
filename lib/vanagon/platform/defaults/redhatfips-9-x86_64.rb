@@ -8,7 +8,6 @@ platform "redhatfips-9-x86_64" do |plat|
     automake
     cmake
     gcc-c++
-    java-1.8.0-openjdk-devel
     libarchive
     libsepol-devel
     libselinux-devel

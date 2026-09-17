@@ -11,7 +11,6 @@ platform 'el-8-ppc64le' do |plat|
     curl
     gcc
     gcc-c++
-    java-1.8.0-openjdk-devel
     libarchive
     libselinux-devel
     make
