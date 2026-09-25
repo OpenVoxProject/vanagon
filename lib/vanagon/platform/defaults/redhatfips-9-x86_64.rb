@@ -9,16 +9,17 @@ platform "redhatfips-9-x86_64" do |plat|
     cmake
     gcc-c++
     libarchive
-    libsepol-devel
     libselinux-devel
+    libsepol-devel
     openssl-devel
     pkgconfig
     readline-devel
-    rpmdevtools
     rpm-build
+    rpmdevtools
     rsync
     swig
     systemtap-sdt-devel
+    which
     zlib-devel
   )
 
