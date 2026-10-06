@@ -183,6 +183,15 @@ end" }
     end
   end
 
+  describe '#suggests' do
+    it 'adds a package to the list of suggested packages' do
+      proj = Vanagon::Project::DSL.new('test-fixture', configdir, platform)
+      proj.instance_eval(project_block)
+      proj.suggests('jre-25-headless')
+      expect(proj._project.suggests).to eq(['jre-25-headless'])
+    end
+  end
+
   describe '#generate_source_artifacts' do
     it 'defaults to false' do
       proj = Vanagon::Project::DSL.new('test-fixture', configdir, platform)
