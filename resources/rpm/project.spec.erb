@@ -75,6 +75,9 @@ Autoreq: 0
 <%- get_requires.each do |requires| -%>
 Requires:  <%= requires.requirement %><%= requires.version ? " #{requires.version}" : "" %>
 <%- end -%>
+<%- suggests.each do |suggestion| -%>
+Suggests:  <%= suggestion %>
+<%- end -%>
 
 <%- if has_services? -%>
   <%- if @platform.get_service_types.include?("systemd") -%>

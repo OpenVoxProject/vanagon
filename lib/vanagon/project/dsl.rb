@@ -113,6 +113,15 @@ class Vanagon
         @project.requires << OpenStruct.new(:requirement => requirement, :version => version)
       end
 
+      # Names a package the project suggests at run time. Only rpm packages
+      # carry the tag, which is how a preferred alternative of an or
+      # requirement is marked for the rpm solvers.
+      #
+      # @param suggestion [String] the package to suggest
+      def suggests(suggestion)
+        @project.suggests << suggestion
+      end
+
       # Indicates that this component replaces a system level package. Replaces can be collected and used by the project and package.
       #
       # @param replacement [String] a package that is replaced with this component

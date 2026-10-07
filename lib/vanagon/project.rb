@@ -27,6 +27,7 @@ class Vanagon
     attr_accessor :components
     attr_accessor :conflicts
     attr_accessor :requires
+    attr_accessor :suggests
     attr_accessor :replaces
     attr_accessor :provides
 
@@ -150,6 +151,7 @@ class Vanagon
       @name = name
       @components = []
       @requires = []
+      @suggests = []
       @directories = []
       @settings = platform.settings
       # Environments are like Hashes but with specific constraints
