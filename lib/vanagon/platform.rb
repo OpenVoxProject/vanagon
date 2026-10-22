@@ -340,6 +340,13 @@ class Vanagon
       return !!@name.match(/^(debian|ubuntu|cumulus|huaweios)-.*$/)
     end
 
+    # Utility matcher to determine if the platform is an Arch Linux variety
+    #
+    # @return [true, false] true if the platform is Arch Linux, false otherwise
+    def is_archlinux?
+      return !!@name.match(/^archlinux-.*$/)
+    end
+
     # Utility matcher to determine is the platform is a redhat variety or
     # uses rpm under the hood
     #

@@ -4,6 +4,7 @@ require 'vanagon/platform/rpm/aix'
 require 'vanagon/platform/rpm/sles'
 require 'vanagon/platform/rpm/wrl'
 require 'vanagon/platform/rpm/eos'
+require 'vanagon/platform/pacman'
 require 'vanagon/platform/macos'
 require 'vanagon/platform/solaris_10'
 require 'vanagon/platform/solaris_11'
@@ -40,6 +41,8 @@ class Vanagon
                       Vanagon::Platform::RPM::AIX.new(@name)
                     when /^(amazon|cisco-wrlinux|el|fedora|redhat|redhatfips)-/
                       Vanagon::Platform::RPM.new(@name)
+                    when /^archlinux-/
+                      Vanagon::Platform::Pacman.new(@name)
                     when /^sles-/
                       Vanagon::Platform::RPM::SLES.new(@name)
                     when /^(cumulus|debian|huaweios|ubuntu)-/
