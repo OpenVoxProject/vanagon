@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/openvoxproject/vanagon/tree/1.4.0) (2026-10-25)
+
+[Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.3.2...1.4.0)
+
+**Implemented enhancements:**
+
+- Add amazonlinux 2027 [\#105](https://github.com/OpenVoxProject/vanagon/pull/105) ([vchepkov](https://github.com/vchepkov))
+- Add a suggests DSL method for the rpm Suggests tag [\#103](https://github.com/OpenVoxProject/vanagon/pull/103) ([nmburgan](https://github.com/nmburgan))
+- Add redhatfips-10-x86\_64 platform defaults [\#102](https://github.com/OpenVoxProject/vanagon/pull/102) ([nmburgan](https://github.com/nmburgan))
+
+**Fixed bugs:**
+
+- redhatfips: install which & sort packages [\#101](https://github.com/OpenVoxProject/vanagon/pull/101) ([bastelfreak](https://github.com/bastelfreak))
+
+## [1.3.2](https://github.com/openvoxproject/vanagon/tree/1.3.2) (2026-09-17)
+
+[Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.3.1...1.3.2)
+
+**Implemented enhancements:**
+
+- Handle pre-release versions [\#95](https://github.com/OpenVoxProject/vanagon/pull/95) ([Sharpie](https://github.com/Sharpie))
+- Add windows-msys2-x64 platform definition [\#93](https://github.com/OpenVoxProject/vanagon/pull/93) ([Sharpie](https://github.com/Sharpie))
+- Remove vmpooler config from platforms [\#92](https://github.com/OpenVoxProject/vanagon/pull/92) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Anchor pre-release regex on end of string [\#96](https://github.com/OpenVoxProject/vanagon/pull/96) ([Sharpie](https://github.com/Sharpie))
+- Write downloaded content in binary mode [\#91](https://github.com/OpenVoxProject/vanagon/pull/91) ([Sharpie](https://github.com/Sharpie))
+
+**Merged pull requests:**
+
+- Bump packaging pin [\#99](https://github.com/OpenVoxProject/vanagon/pull/99) ([nmburgan](https://github.com/nmburgan))
+- Remove Java 8 in platform defaults [\#98](https://github.com/OpenVoxProject/vanagon/pull/98) ([nmburgan](https://github.com/nmburgan))
+- Add fedora 44 and 45 [\#90](https://github.com/OpenVoxProject/vanagon/pull/90) ([Stricken1670](https://github.com/Stricken1670))
+- Pass full options hashes from component.add\_source [\#89](https://github.com/OpenVoxProject/vanagon/pull/89) ([Sharpie](https://github.com/Sharpie))
+- CI: run rubocop only once [\#87](https://github.com/OpenVoxProject/vanagon/pull/87) ([bastelfreak](https://github.com/bastelfreak))
+- Remove comment about FIPS builds [\#84](https://github.com/OpenVoxProject/vanagon/pull/84) ([nmburgan](https://github.com/nmburgan))
+
 ## [1.3.1](https://github.com/openvoxproject/vanagon/tree/1.3.1) (2026-02-11)
 
 [Full Changelog](https://github.com/openvoxproject/vanagon/compare/1.3.0...1.3.1)
